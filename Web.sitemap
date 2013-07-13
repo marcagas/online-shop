@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+
+  <siteMapNode url="~/Default.aspx" title="Home" description="Home">
+      <siteMapNode title="Product Details" url="~/BasicReporting/SimpleDisplay.aspx" >
+      </siteMapNode>
+
+      <siteMapNode title="View Products by Categories" url="~/Filtering/FilterByDropDownList.aspx" >
+        <siteMapNode url="~/Filtering/SupplierListMaster.aspx" title="View Products by Suppliers" />
+      </siteMapNode>
+
+      <siteMapNode title="Critical Points" url="~/CustomFormatting/CustomColors.aspx" >
+        <siteMapNode url="~/CustomFormatting/FormView.aspx" title="Product Form Report" description="Illustrates using a FormView for a highly customized view." />
+        <siteMapNode url="~/CustomFormatting/SummaryDataInFooter.aspx" title="Total Summary" description="Display summary data in the grid's footer." />        
+      </siteMapNode>
+
+      <siteMapNode title="Updating of Inventory" url="~/EditInsertDelete/Basics.aspx" >
+        <siteMapNode url="~/EditInsertDelete/DataModificationEvents.aspx" title="New Product with Price" />
+        <siteMapNode url="~/EditInsertDelete/ConfirmationOnDelete.aspx" title="Product Deletion" />
+      </siteMapNode>
+
+      <siteMapNode title="Product Sorting" url="~/PagingAndSorting/SimplePagingSorting.aspx" >
+      </siteMapNode>
+
+      <siteMapNode title="Price Increase for Products" url="~/CustomButtons/CustomButtons.aspx" >
+      </siteMapNode>
+
+      <siteMapNode title="Reports" url="~/DataListRepeaterBasics/Basics.aspx" >
+        <siteMapNode url="~/Reports/OrderReportSummary.aspx" title="Order Report Summary" />
+
+      </siteMapNode>
+
+      <siteMapNode title="Product Reports by Categories" url="~/DataListRepeaterFiltering/FilterByDropDownList.aspx" >
+      </siteMapNode>
+
+      <siteMapNode title="Suppliers Batch Update" url="~/EditDeleteDataList/BatchUpdate.aspx" >
+      </siteMapNode>
+
+      <siteMapNode title="Adding a new Record" url="~/EnhancedGridView/InsertThroughFooter.aspx" >
+      </siteMapNode>
+
+      <siteMapNode title="Category Image Management" url="~/BinaryData/UpdatingAndDeleting.aspx" >
+      <siteMapNode url="~/ProductImage.aspx" title="Product Image Management" />
+      </siteMapNode>
+
+      <siteMapNode title="Account Management" url="" >
+      <siteMapNode url="~/Management/CustomerPage.aspx" title="Customer Account" />
+      <siteMapNode url="~/Management/EmployeePage.aspx" title="Employee Account" />
+      </siteMapNode>
+  
+  </siteMapNode>
+</siteMap>

@@ -1,0 +1,1 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="DisplayCategoryPicture.aspx.cs" Inherits="Front_End_DisplayCategoryPicture" %>

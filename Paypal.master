@@ -1,0 +1,53 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Paypal.master.cs" Inherits="Paypal" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Paypal</title>
+<link href="http://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
+<link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+    <style type="text/css">
+        .style1
+        {
+            font-size: medium;
+            color: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper">
+	<div id="header-wrapper">
+		<div id="header">
+			<div id="logo">
+				<h1><a href="#">Paypal</a></h1>
+			</div>
+		</div>
+	</div>
+	<!-- end #header -->
+    <asp:ContentPlaceHolder id="ContentPlaceHolder2" runat="server">
+   
+	    <div id="menu-wrapper">
+            <div id="menu">
+               
+            </div>
+        </div>
+    </asp:ContentPlaceHolder>
+	<!-- end #menu -->\
+    <asp:ContentPlaceHolder id="ContentPlaceHolder3" runat="server">
+    </asp:ContentPlaceHolder>
+					<!-- end #sidebar -->
+				</div>
+				<div style="clear: both;">&nbsp;</div>
+			</div>
+		</div>
+	</div>
+	<!-- end #page -->
+</div>
+<div id="footer">
+	<p>Copyright © De La Salle University - Dasmariñas 2011-2012.
+</html>
