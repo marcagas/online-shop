@@ -1,0 +1,61 @@
+﻿body {
+}
+
+body > footer 
+{
+    width: 980px;
+    margin: 50px auto;
+}
+
+body > footer p 
+{
+    text-align: center;
+}
+
+.hide 
+{
+    display: none;
+}
+
+.marginTop10 
+{
+    margin-top: 10px;
+}
+
+#wrapper header 
+{
+    background: #563d7c;
+    height: 150px;
+    position: relative;
+    overflow: hidden;
+    padding-left: 20px;
+    color: #fff;
+}
+
+
+#wrapper > nav 
+{
+    padding: 10px 0 10px 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+#wrapper header h1 a 
+{
+    color: #fff;
+}
+
+#wrapper #logo 
+{
+    margin-top: 65px;
+}
+
+#wrapper #container 
+{
+    min-height: 200px;
+}
+
+#wrapper #page-bottom 
+{
+    padding: 0 30px 20px;
+    border-top: 1px solid #ccc;
+}

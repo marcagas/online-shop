@@ -16,16 +16,17 @@ using System.Text;
 
     public partial class Login : System.Web.UI.Page
     {
+        public global gd = new global();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         protected void ImageButton3_Click(object sender, ImageClickEventArgs e)
         {
-            MessageBox.Show("Account succesfully Logged In!",
-              "Account Confirmation");
+            //MessageBox.Show("Account succesfully Logged In!",
+            //  "Account Confirmation");
 
             int flag = 0;
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["NORTHWNDConnectionString"].ConnectionString);
@@ -46,6 +47,8 @@ using System.Text;
                         Response.Cookies["Pwd"].Value = TextBox2.Text;
                         //Response.Cookies["role"].Value = dtr[2].ToString();
                         FormsAuthentication.RedirectFromLoginPage(TextBox1.Text, false);
+                        gd.loggedIn = true;
+                        Session["logged_in_info"] = TextBox1.Text + " " + TextBox2.Text;
                         Response.Redirect("LoginHome.aspx");
 
                     }

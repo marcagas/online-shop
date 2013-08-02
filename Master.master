@@ -1,0 +1,78 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Master.master.cs" Inherits="Master" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>E-Trade Enterprise</title>
+    <link rel="stylesheet" type="text/css" href="Stylesheet.css" />
+    <link href="assets/stylesheets/layout.css" rel="stylesheet" type="text/css" />
+    <link href="assets/stylesheets/bootstrap.css" rel="stylesheet" type="text/css" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <script src="assets/javascripts/bootstrap.js" type="text/javascript"></script>
+    <script type="text/javascript" src="jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="jquery.dropotron-1.0.js"></script>
+    <script type="text/javascript" src="jquery.slidertron-1.1.js"></script>
+    <script src="/online-shop/assets/javascripts/main.js" type="text/javascript"></script>
+    <asp:ContentPlaceHolder id="head" runat="server">        
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <div id="wrapper">    
+        <header>
+            <div id="logo">
+			    <h1><a href="#">E-Trade Enterprises</a></h1>
+		    </div>
+            <p id="slogan">
+			    <h5> Computers within your Reach </h5>
+		    </p>
+        </header>
+        <nav>
+            <ul class="nav nav-pills">
+                <li>
+                    <a href="Front%20End/Home.aspx">HOME</a>
+                </li>
+                <li>
+                    <a href="Front%20End/Products.aspx">PRODUCTS</a>
+                </li>
+                <li>
+                    <a href="Front%20End/MyCart.aspx">MY CART</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">ACCESSIBILITY
+                    <span class="caret"></span>
+                    </a>                        
+                    <ul class="dropdown-menu">
+                        <li><a href="">Login</a></li>
+                        <li><a href="">Register</a></li>
+                        <li><a href="">Help</a></li>
+                    </ul>
+                </li>
+                    
+            </ul>
+        </nav>
+		    
+        <div id="container">
+            <asp:ContentPlaceHolder ID="sliderContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <asp:ContentPlaceHolder ID="bodyContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+	    
+        <div id="page-bottom">
+		    <h3>E-trade Enterprises</h3>
+		    <p>
+				    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E-Trade Enterprise’ other services include upgrading old computers (memory, hard drive, motherboard, processor, and video & etc), cleaning, repair and maintenance of microcomputers, printers and viruses.
+                    They also offer installation and maintenance of Local Area Network (LAN and WAN System), installation of OS (Win 95/98/ME/XP/2000/NT & Office 97/2000/XP etc.) and infrastructure cabling.
+		    </p>
+        </div>
+    </div>
+    <footer>
+        <p>
+            Copyright © De La Salle University - Dasmariñas 2011-2012. Webmaster click <asp:HyperLink runat="server" ID="lnkHome" NavigateUrl="~/BackEndLoginPage.aspx">here</asp:HyperLink>.
+        </p>
+    </footer>
+</body>
+</html>

@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/FrontMaster.master" AutoEventWireup="true" CodeFile="LoginHome.aspx.cs" Inherits="Front_End_LoginHome" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder2" Runat="Server">
-<div id="menu">
+<!--<div id="menu">
 		<ul>
 			<li class="first"><a href="LoginHome.aspx"><b>Home</b></a>
             <li class="second"><a href="LoginProducts.aspx"><b>Products</b></a>
@@ -15,7 +15,7 @@
                     </li> 
 		</ul>
 		<br class="clearfix" />
-</div>
+</div>-->
 </asp:Content>
 <asp:Content ID="Content3" runat="server" 
     contentplaceholderid="ContentPlaceHolder1">
