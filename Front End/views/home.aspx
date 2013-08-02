@@ -36,7 +36,101 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="bodyContent" Runat="Server">
+    <form id="form1" runat="server">
+    <div id="flash1"></div>
+    <p>Get a chance to enjoy our products at limited offers and discount every time you buy! We can also guarantee the fastest and safest way to pay your bills with the help of our partnership with Paypal and other billing companies. </p>
+    <p>What are you waiting for? Sign up now and enjo our exclusive promors to our registered members. Get to know more about our products as we want to have our valued customers to enjoy our services.</p>
+    <div id="featured-products">
+        <h3>Featured Products</h3>
+        
+        <ul class="products-list">
+            <li>
+                <a href="#">
+                    <img src="#" width="100px" height="100px" />
+                    <span class="product-name">AVG</span>
+                    <span class="product-category">Anti-Virus</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="#" width="100px" height="100px" />
+                    <span class="product-name">Kaspersky</span>
+                    <span class="product-category">Anti-Virus</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="#" width="100px" height="100px" />
+                    <span class="product-name">Microsoft Office 2010</span>
+                    <span class="product-category">Professional</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="#" width="100px" height="100px" />
+                    <span class="product-name">Sony</span>
+                    <span class="product-category">Headset</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="#" width="100px" height="100px" />
+                    <span class="product-name">McAfee</span>
+                    <span class="product-category">Anti-Virus</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="#" width="100px" height="100px" />
+                    <span class="product-name">MSI Optical</span>
+                    <span class="product-category">Mouse</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="#" width="100px" height="100px" />
+                    <span class="product-name">Linksys</span>
+                    <span class="product-category">Wifi Router</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="#" width="100px" height="100px" />
+                    <span class="product-name">Asus Monitor</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="#" width="100px" height="100px" />
+                    <span class="product-name">AMD Sempron</span>
+                    <span class="product-category">Microprocessor</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="#" width="100px" height="100px" />
+                    <span class="product-name">Hewlett Packard</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="#" width="100px" height="100px" />
+                    <span class="product-name">Kingston</span>
+                    <span class="product-category">External Driver</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="#" width="100px" height="100px" />
+                    <span class="product-name">Maxtor</span>
+                    <span class="product-category">External Driver</span>
+                </a>
+            </li>
 
+        </ul>
+    </div>
+    <div id="flash2"></div>
+    </form>
 </asp:Content>
 
 <asp:Content ID="jsContent" ContentPlaceHolderID="pageSpecificJavaScript" Runat="server">

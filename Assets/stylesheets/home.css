@@ -1,0 +1,28 @@
+﻿#featured-products 
+{
+    clear: both;
+    overflow: hidden;
+    position: relative;
+}
+
+#featured-products .products-list 
+{
+    list-style: none;
+}
+
+#featured-products .products-list li 
+{
+    float: left;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+}
+
+#featured-products .products-list img 
+{
+}
+
+#featured-products .products-list span 
+{
+    display: block;
+}
