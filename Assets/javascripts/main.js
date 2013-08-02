@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    /*
     $('#menu > ul').dropotron({
         mode: 'fade',
         globalOffsetY: 11,
@@ -14,7 +15,7 @@
             speed: 'slow',
             advanceDelay: 4000
         });
-    }
+    }*/
 
     $('li.dropdown').click(function (e) {
         e.preventDefault();

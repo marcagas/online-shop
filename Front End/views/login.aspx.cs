@@ -18,6 +18,10 @@ public partial class Front_End_views_login : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Session["logged_in_info"] != null)
+        {
+            Response.Redirect("home.aspx");
+        }
 
     }
     protected void submitButton_Click(object sender, EventArgs e)
@@ -42,8 +46,7 @@ public partial class Front_End_views_login : System.Web.UI.Page
                     //Response.Cookies["role"].Value = dtr[2].ToString();
                     FormsAuthentication.RedirectFromLoginPage(username.Text, false);
                     Session["logged_in_info"] = username.Text + " " + password.Text;
-                    Response.Redirect("LoginHome.aspx");
-
+                    Response.Redirect("home.aspx");
                 }
                 else
                 {
