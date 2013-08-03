@@ -20,4 +20,5 @@ public class global
 		// TODO: Add constructor logic here
 		//
 	}
+
 }

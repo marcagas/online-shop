@@ -22,6 +22,11 @@ public partial class Front_End_views_login : System.Web.UI.Page
         {
             Response.Redirect("home.aspx");
         }
+        else if (Session["flash_message"] != null)
+        {
+            alertLabel.Text = Session["flash_message"].ToString();
+            Session["flash_message"] = null;
+        }
 
     }
     protected void submitButton_Click(object sender, EventArgs e)
