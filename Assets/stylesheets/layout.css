@@ -17,6 +17,16 @@ body > footer p
     display: none;
 }
 
+.marginLeft10 
+{
+    margin-left: 10px;
+}
+
+.marginLeft20 
+{
+    margin-left: 20px;
+}
+
 .marginTop10 
 {
     margin-top: 10px;
@@ -30,6 +40,15 @@ body > footer p
     overflow: hidden;
     padding-left: 20px;
     color: #fff;
+}
+
+#wrapper header #etrade_logo
+{
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    width: 100px;
+    height: 100px;
 }
 
 

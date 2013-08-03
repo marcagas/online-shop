@@ -29,6 +29,7 @@
             <p id="slogan">
 			    <h5> Computers within your Reach </h5>
 		    </p>
+            <img src="../../assets/images/shopping_cart.png" id="etrade_logo" />
         </header>
         <nav>
             <ul class="nav nav-pills" id="main-menu">
@@ -63,7 +64,7 @@
                          %>
                         
                         <li><a href="" class="sub-links">Register</a></li>
-                        <li><a href="" class="sub-links">Help</a></li>
+                        <li><a href="help.aspx" class="sub-links">Help</a></li>
                     </ul>
                 </li>
                     
