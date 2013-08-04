@@ -1,0 +1,17 @@
+﻿body {
+}
+
+section.new-user-wrapper input[type="text"]
+{
+    width: 100% !important;
+}
+
+section.new-user-wrapper label.error 
+{
+    position: absolute;
+    left: 400px;
+    width: 100%;
+    top: 6px;
+    color: #f55;
+    font-weight: normal;
+}

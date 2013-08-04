@@ -32,6 +32,11 @@ body > footer p
     margin-top: 10px;
 }
 
+.widthAuto 
+{
+    width: auto;
+}
+
 #wrapper header 
 {
     background: #563d7c;
@@ -78,6 +83,12 @@ body > footer p
 {
     padding: 0 30px 20px;
     border-top: 1px solid #ccc;
+}
+
+#wrapper input 
+{
+    text-align: left;
+    width: auto;
 }
 
 #products-carousel 

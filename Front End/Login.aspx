@@ -17,9 +17,6 @@
     </div>
 </asp:Content>--%>   
 
-<asp:Content ID="loginContent" runat="server" contentplaceholderid="bodycontent">
-    
-</asp:Content>
 <asp:Content ID="Content1" runat="server" contentplaceholderid="head">
     
 	    <div id="page">

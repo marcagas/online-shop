@@ -27,4 +27,6 @@
             return false;
         }
     });
+
+    $('input[type="text"]').addClass('form-control widthAuto');
 });

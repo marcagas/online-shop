@@ -20,16 +20,16 @@
             <div class="form-group">
                 <label for="inputUsername" class="col-lg-2 control-label">Username</label>
                 <div class="col-lg-5">
-                    <asp:TextBox ID="username" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="username" runat="server" CssClass="form-control"></asp:TextBox>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputUsername" class="col-lg-2 control-label">Password</label>
                 <div class="col-lg-5">
-                    <asp:TextBox ID="password" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="password" runat="server" CssClass="form-control"></asp:TextBox>
                     <div class="marginTop10">
                         <asp:Button ID="submitButton" class="btn btn-primary" runat="server" 
-                            Text="Button" onclick="submitButton_Click"></asp:Button>
+                            Text="Login" onclick="submitButton_Click"></asp:Button>
                     </div>
                 </div>
             </div>
