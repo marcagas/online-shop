@@ -28,9 +28,18 @@
             <div id="logo">
 			    <h1><a href="#">E-Trade Enterprises</a></h1>
 		    </div>
-            <p id="slogan">
-			    <h5> Computers within your Reach </h5>
-		    </p>
+            <div class="subheader">
+                <h5> Computers within your Reach </h5>
+                <% 
+                    if (Session["logged_in_info"] != null)
+                    {
+                %>   
+                        <h5 class="logged-in-info">Logged in: <b><% Response.Write(Session["logged_in_info"]); %></b></h5>
+                <%
+                    }
+                %>
+            </div>
+		    
             <img src="../../assets/images/shopping_cart.png" id="etrade_logo" />
         </header>
         <nav>
