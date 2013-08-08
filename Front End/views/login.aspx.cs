@@ -47,10 +47,13 @@ public partial class Front_End_views_login : System.Web.UI.Page
 
 
                     Response.Cookies["UserId"].Value = username.Text;
-                    Response.Cookies["Pwd"].Value = password.Text;
+                    //Response.Cookies["Pwd"].Value = password.Text;
                     //Response.Cookies["role"].Value = dtr[2].ToString();
-                    FormsAuthentication.RedirectFromLoginPage(username.Text, false);
-                    Session["logged_in_info"] = username.Text;
+                    //FormsAuthentication.RedirectFromLoginPage(username.Text, false);
+
+                    Response.Cookies["UserId"].Value = dtr[7].ToString();
+                    Response.Cookies["FirstName"].Value = dtr[0].ToString();
+                    Session["logged_in_info"] = username.Text;                    
                     Response.Redirect("home.aspx");
                 }
                 else
