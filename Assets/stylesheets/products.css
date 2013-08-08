@@ -52,3 +52,53 @@ li.fade-category {
 li.fade-category:hover {
     background: #fff;
 }
+
+section.products-categories-show ul.products-list
+{
+    list-style: none;
+}
+
+section.products-categories-show ul.products-list li.product-details-wrapper
+{
+    display: block;
+    border-bottom: 1px solid #ccc;
+    padding: 15px 15px;
+}
+
+section.products-categories-show ul.products-list li.product-details-wrapper:last-child
+{
+    border: 0;
+}
+
+section.products-categories-show ul.products-list img.product-img
+{
+    display: block;
+    float: left;
+}
+
+section.products-categories-show ul.products-list .product-info
+{
+    float: left;
+    margin-left: 30px;
+    
+}
+
+section.products-categories-show ul.products-list .product-info p 
+{
+    margin: 0;
+}
+
+section.products-categories-show ul.products-list .product-info span.product-name 
+{
+    font-weight: bold;
+}
+
+section.products-categories-show ul.products-list .product-info span.product-price
+{
+    color: #900;
+}
+
+section.products-categories-show ul.products-list .add-to-cart-wrapper
+{
+    float: right;
+}

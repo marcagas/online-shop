@@ -1,4 +1,9 @@
-﻿$(document).ready(function () {
+﻿etrade = {};
+etrade.is_user_logged_in = function () {
+    
+};
+
+$(document).ready(function () {
     /*
     $('#menu > ul').dropotron({
     mode: 'fade',

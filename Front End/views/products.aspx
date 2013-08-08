@@ -2,6 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <link href="../../assets/stylesheets/products.css" rel="stylesheet" type="text/css" />
+    <script src="../../assets/javascripts/products.js" type="text/javascript"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="sliderContent" Runat="Server">
 </asp:Content>
@@ -14,7 +15,7 @@
                 {
             %>
                     <li class="fade-category" 'data-category-id'="<% Response.Write(categories[0].ToString()); %>">
-                        <a href="#">
+                        <a href="products_show.aspx?category=<% Response.Write(categories[0].ToString()); %>">
                             <img src="<% Response.Write("data:image/jpg;base64," + Convert.ToBase64String((byte[])categories[3])); %>" />
                         </a>
                         <span class="name"><% Response.Write(categories[1].ToString()); %></span>
@@ -27,5 +28,8 @@
     </section>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="pageSpecificJavaScript" Runat="Server">
+    <script>
+        $('li.products').addClass('active');
+    </script>
 </asp:Content>
 
