@@ -66,7 +66,7 @@ public partial class Front_End_views_products_show : System.Web.UI.Page
     private void loadProducts(int category)
     {
         con.Open();
-        str = "Select * From Products where CATEGORYID=" + category;
+        str = "Select Products.*, ProductImage.Picture From Products INNER JOIN ProductImage ON ProductImage.ProductName = Products.ProductName where CATEGORYID=" + category;
         cmd= new SqlCommand(str, con);
         products = cmd.ExecuteReader();
     }

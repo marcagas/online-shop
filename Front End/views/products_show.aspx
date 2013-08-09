@@ -19,8 +19,7 @@
                 {
             %>
                     <li class="product-details-wrapper clearfix">
-                        <img class="product-img" width="150px" height="150px" src="" />
-
+                        <img class="product-img" width="150px" height="150px" src="<% Response.Write("data:image/jpg;base64," + Convert.ToBase64String((byte[])products[10])); %>" />
                         <div class="product-info">
                             <p>Name: <span class="product-name"><% Response.Write(products[1].ToString()); %></span></p>
                             <p>Price: <span class="product-price">Php <% Response.Write(products[5].ToString()); %></span></p>
@@ -44,7 +43,17 @@
     </section>
 
     <div id="add-to-cart-dialog" class="hide">
-        
+        <%
+            if (Session["logged_in_info"] == null)
+            {
+                
+        %>
+            
+        <%  }
+            else
+            { %>
+
+        <% } %>
     </div>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="pageSpecificJavaScript" Runat="Server">
