@@ -17,6 +17,7 @@
             <%
                 while (products.Read())
                 {
+                    string productId = products[0].ToString();
             %>
                     <li class="product-details-wrapper clearfix">
                         <img class="product-img" width="150px" height="150px" src="<% Response.Write("data:image/jpg;base64," + Convert.ToBase64String((byte[])products[10])); %>" />
@@ -26,7 +27,7 @@
                             <p>Stocks: <span class="product-stocks"><% Response.Write(products[6].ToString()); %></span></p>
                         </div>                        
                         <div class="add-to-cart-wrapper">
-                            <a href="#" class="btn btn-danger">Add To Cart</a>
+                            <a href="#" class="btn btn-danger add-cart-btn" data-product-id="<% Response.Write(productId); %>" data-product-name="<% Response.Write(products[1].ToString()); %>" data-product-price="<% Response.Write(products[5].ToString()); %>" data-available-stocks="<% Response.Write(products[6].ToString()); %>">Add To Cart</a>
                             <!--<form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
                                 <input type="hidden" name="cmd" value="_s-xclick">
                                 <input type="hidden" name="hosted_button_id" value="TADAJRT6W5CBS">
@@ -47,12 +48,61 @@
             if (Session["logged_in_info"] == null)
             {
                 
-        %>
+        %>  
+            <p class="lead">You must be logged in to purchase this item! Click <a href="login.aspx">here to login.</a></p>
             
         <%  }
             else
-            { %>
+            { 
+        %>
+            <section class="item-info-wrapper">
+                <div class="item-info">
+                    <ul>
+                        <li>
+                            <label>Item: </label>
+                            <span class="name">AVG</span>
+                        </li>
+                        <li>
+                            <label>Unit Price: </label>
+                            <span class="unit-price">12000</span>        
+                        </li>
+                        <li>
+                            <label>Available Stocks: </label>
+                            <span class="available-stocks">12000</span>        
+                        </li>
+                    </ul>
+                    
+                </div>
 
+                <div class="item-pricing">
+                    <ul>
+                        <li class="number-of-items">
+                            <label>Number of Items:</label>
+                            <input type="text" value="1" id="item-num" />
+                        </li>
+                        <li class="total-price">
+                            <label>Total Price: </label>
+                            <span>12000</span>
+                        </li>
+                    </ul>
+                    
+                    
+                </div>
+                <div class="dialog-footer">
+                    <a href="mycart.aspx" class="view-my-cart">
+                        <i class="icon-eye-open"></i>
+                        View My Cart
+                    </a>
+                    <div class="action">
+                        <p class="add-success-msg hide"><i class="icon-check"></i> Successfully Added Item to Cart!</p>
+                        <button type="button" class="btn btn-primary btn-add">
+                            Add
+                        </button>
+                    </div>
+                    
+                </div>
+                        
+            </section>
         <% } %>
     </div>
 </asp:Content>

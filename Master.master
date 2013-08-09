@@ -12,6 +12,7 @@
     <link href="assets/stylesheets/layout.css" rel="stylesheet" type="text/css" />
     <link href="assets/stylesheets/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="assets/stylesheets/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css" />
+    <link href="assets/stylesheets/bootstrap_custom.css" rel="stylesheet" type="text/css" />
     <link href="assets/stylesheets/StyleSheet.css" rel="stylesheet" type="text/css" />
     <link href="assets/stylesheets/home.css" rel="stylesheet" type="text/css" />
     <link href="assets/stylesheets/register.css" rel="stylesheet" type="text/css" />
