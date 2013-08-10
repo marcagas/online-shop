@@ -8,26 +8,36 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="bodyContent" Runat="Server">
     <section class="products-categories-show">
-        <p class="lead">
-            <% 
-                Response.Write(category_name);
-            %>
-        </p>
+        <div class="header">
+            <p class="lead">
+                <% 
+                    Response.Write(category_name);
+                %>
+            </p>
+            <!--<a href="mycart.aspx" class="view-my-cart">
+                <i class="icon-eye-open"></i>
+                View My Cart
+            </a>-->
+        </div>
+        
         <ul class="products-list">
             <%
                 while (products.Read())
                 {
                     string productId = products[0].ToString();
+                    string productName = products[1].ToString();
+                    string productPrice = products[5].ToString();
+                    string productStocks = products[6].ToString();
             %>
                     <li class="product-details-wrapper clearfix">
                         <img class="product-img" width="150px" height="150px" src="<% Response.Write("data:image/jpg;base64," + Convert.ToBase64String((byte[])products[10])); %>" />
                         <div class="product-info">
-                            <p>Name: <span class="product-name"><% Response.Write(products[1].ToString()); %></span></p>
-                            <p>Price: <span class="product-price">Php <% Response.Write(products[5].ToString()); %></span></p>
-                            <p>Stocks: <span class="product-stocks"><% Response.Write(products[6].ToString()); %></span></p>
+                            <p>Name: <span class="product-name"><% Response.Write(productName); %></span></p>
+                            <p>Price: <span class="product-price">Php <% Response.Write(productPrice); %></span></p>
+                            <p>Stocks: <span class="product-stocks"><% Response.Write(productStocks); %></span></p>
                         </div>                        
                         <div class="add-to-cart-wrapper">
-                            <a href="#" class="btn btn-danger add-cart-btn" data-product-id="<% Response.Write(productId); %>" data-product-name="<% Response.Write(products[1].ToString()); %>" data-product-price="<% Response.Write(products[5].ToString()); %>" data-available-stocks="<% Response.Write(products[6].ToString()); %>">Add To Cart</a>
+                            <a href="#" class="btn btn-danger add-cart-btn" data-product-id="<% Response.Write(productId); %>" data-product-name="<% Response.Write(productName); %>" data-product-price="<% Response.Write(productPrice); %>" data-available-stocks="<% Response.Write(productStocks); %>">Add To Cart</a>
                             <!--<form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
                                 <input type="hidden" name="cmd" value="_s-xclick">
                                 <input type="hidden" name="hosted_button_id" value="TADAJRT6W5CBS">
