@@ -11,4 +11,10 @@ public partial class Front_End_views_home : System.Web.UI.Page
     {
 
     }
+
+    private void loadFeaturedProducts()
+    {
+        string productIds = "115, 116, 117, 118";
+
+    }
 }
