@@ -1,7 +1,8 @@
 ﻿body {
 }
 
-section.new-user-wrapper input[type="text"]
+section.new-user-wrapper input[type="text"],
+section.new-user-wrapper input[type="password"]
 {
     width: 100% !important;
 }

@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.master" AutoEventWireup="true" CodeFile="register.aspx.cs" Inherits="Front_End_views_register" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <link href="../../assets/stylesheets/register.css" rel="stylesheet" type="text/css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="sliderContent" Runat="Server">
 </asp:Content>
@@ -29,19 +30,19 @@
             <div class="form-group">
                 <label for="inputUsername" class="col-lg-2 control-label">Username</label>
                 <div class="col-lg-5">
-                    <asp:TextBox ID="usernameTxt" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="usernameTxt" runat="server" ></asp:TextBox>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputPassword" class="col-lg-2 control-label">Password</label>
                 <div class="col-lg-5">
-                    <asp:TextBox ID="passwordTxt" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="passwordTxt" runat="server" TextMode="Password"></asp:TextBox>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputConfirmPassword" class="col-lg-2 control-label">Confirm Password</label>
                 <div class="col-lg-5">
-                    <asp:TextBox ID="confirmPasswordTxt" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="confirmPasswordTxt" runat="server" TextMode="Password"></asp:TextBox>
                 </div>
             </div>
             <div class="form-group">

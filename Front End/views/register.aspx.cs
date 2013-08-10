@@ -48,6 +48,6 @@ public partial class Front_End_views_register : System.Web.UI.Page
         //Response.Cookies["role"].Value = "user";
         FormsAuthentication.RedirectFromLoginPage(firstName, true);
         con.Close();
-        Response.Redirect("register_succss.aspx");
+        Response.Redirect("register_success.aspx");
     }
 }
