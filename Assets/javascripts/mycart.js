@@ -6,6 +6,7 @@
 
             self.displayCart();
             $('a.delete-item').on('click', self.deleteItem);
+            $('.fancybox').fancybox();
         },
 
         displayCart: function () {
@@ -31,6 +32,7 @@
                 template = cartList.find('.product-list-template').clone();
 
                 template.removeClass('product-list-template');
+                template.find('.image-wrapper .fancybox').attr('href', img);
                 template.find('.image-wrapper img').attr('src', img);
                 template.find('.image-wrapper label').text(name);
                 template.find('.count-wrapper .count').text(num);

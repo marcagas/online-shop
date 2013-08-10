@@ -81,8 +81,10 @@ section.my-cart-wrapper .cart-list ul li.total-price-wrapper
 section.my-cart-wrapper li.total-price-wrapper a.delete-item
 {
     position: absolute;
-    bottom: -30px;
+    bottom: 15px;
     right: 22px;
+    line-height: 20px;
+    font-size: 0.85em;
 }
 
 #mycartForm .btn 
@@ -90,7 +92,3 @@ section.my-cart-wrapper li.total-price-wrapper a.delete-item
     float: right;
 }
 
-a.delete-item 
-{
-    font-size: 0.85em;
-}

@@ -53,7 +53,9 @@
                         <li class="product-list-wrapper product-list-template hide">
                             <ul>
                                 <li class="image-wrapper">
-                                    <img src="#" width="100px" height="100px" />
+                                    <a href="#" class="fancybox">
+                                        <img src="#" width="100px" height="100px" />
+                                    </a>
                                     <label>AVG Product</label>
                                 </li>
                                 <li class="count-wrapper">
@@ -80,6 +82,10 @@
                     <input id="item2" type="hidden" name="item_name_2" value="LG Monitor" />
                     <input id="amount2" type="hidden" name="amount_2" value="1399.00" />
                     <input id="shipping2" type="hidden" name="shipping_2" value="50.00" />-->
+                    <a href="products.aspx">
+                        <i class="icon-plus-sign"></i>
+                        Add Another Product
+                    </a>
                     <button type="submit" class="btn btn-danger">Checkout</button>
                 </form>
 

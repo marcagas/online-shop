@@ -193,7 +193,7 @@ section.products-categories-show ul.products-list .add-to-cart-wrapper
     margin: 7px 15px 0 0;
 }
 
-#add-to-cart-dialog .dialog-footer button
+#add-to-cart-dialog .dialog-footer .buttons-wrapper
 {
     float: right;
 }

@@ -4,6 +4,7 @@
     return {
         init: function () {
             self = this;
+            $('.fancybox').fancybox();
 
             $('.add-cart-btn').on('click', function (e) {
                 e.preventDefault();
@@ -37,6 +38,9 @@
             $('#item-num').on('blur', self.checkTotal);
 
             $('.btn-add').on('click', self.addToCart);
+            $('.btn-close').on('click', function () {
+                $('#add-to-cart-dialog').dialog('destroy');
+            });
         },
 
         addToCart: function (e) {
@@ -93,7 +97,7 @@
             var price = parseFloat($('span.unit-price').text());
             var total = num * price;
 
-            $('li.total-price span').html("Php "+total);
+            $('li.total-price span').html("Php " + total);
         },
 
         checkTotal: function () {

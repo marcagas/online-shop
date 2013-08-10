@@ -28,9 +28,13 @@
                     string productName = products[1].ToString();
                     string productPrice = products[5].ToString();
                     string productStocks = products[6].ToString();
+                    string img = "data:image/jpg;base64," + Convert.ToBase64String((byte[])products[10]);
             %>
                     <li class="product-details-wrapper clearfix">
-                        <img class="product-img" width="150px" height="150px" src="<% Response.Write("data:image/jpg;base64," + Convert.ToBase64String((byte[])products[10])); %>" />
+                        <a href="<% Response.Write(img); %>" class="fancybox">
+                            <img class="product-img" width="150px" height="150px" src="<% Response.Write(img); %>" />
+                        </a>
+                        
                         <div class="product-info">
                             <p>Name: <span class="product-name"><% Response.Write(productName); %></span></p>
                             <p>Price: <span class="product-price">Php <% Response.Write(productPrice); %></span></p>
@@ -105,9 +109,15 @@
                     </a>
                     <div class="action">
                         <p class="add-success-msg hide"><i class="icon-check"></i> Successfully Added Item to Cart!</p>
-                        <button type="button" class="btn btn-primary btn-add">
-                            Add
-                        </button>
+                        <div class="buttons-wrapper">
+                            <button type="button" class="btn btn-primary btn-add">
+                                Add
+                            </button>
+                            <button type="button" class="btn btn-close">
+                                Close
+                            </button>
+                        </div>
+                        
                     </div>
                     
                 </div>
