@@ -26,7 +26,7 @@
             <div class="form-group">
                 <label for="inputUsername" class="col-lg-2 control-label">Password</label>
                 <div class="col-lg-5">
-                    <asp:TextBox ID="password" runat="server" CssClass="form-control"></asp:TextBox>
+                    <asp:TextBox ID="password" runat="server" CssClass="form-control" TextMode="Password"></asp:TextBox>
                     <div class="marginTop10">
                         <asp:Button ID="submitButton" class="btn btn-primary" runat="server" 
                             Text="Login" onclick="submitButton_Click"></asp:Button>
