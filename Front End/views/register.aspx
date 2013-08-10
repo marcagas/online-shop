@@ -36,13 +36,13 @@
             <div class="form-group">
                 <label for="inputPassword" class="col-lg-2 control-label">Password</label>
                 <div class="col-lg-5">
-                    <asp:TextBox ID="passwordTxt" runat="server" TextMode="Password"></asp:TextBox>
+                    <asp:TextBox ID="passwordTxt" runat="server" class="form-control widthAuto" TextMode="Password"></asp:TextBox>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputConfirmPassword" class="col-lg-2 control-label">Confirm Password</label>
                 <div class="col-lg-5">
-                    <asp:TextBox ID="confirmPasswordTxt" runat="server" TextMode="Password"></asp:TextBox>
+                    <asp:TextBox ID="confirmPasswordTxt" runat="server" class="form-control widthAuto" TextMode="Password"></asp:TextBox>
                 </div>
             </div>
             <div class="form-group">
