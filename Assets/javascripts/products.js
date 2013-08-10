@@ -66,7 +66,6 @@
                         exist = true;
                     }
 
-                    console.log('list_num', list_num);
                     if (parseInt(list_num) <= 0) { return false; }
 
                     if (products == "") {
@@ -79,7 +78,6 @@
                 if (!exist) {
                     products = products + "&" + self.stringifyItem(productId, num);
                 }
-                console.log('products >>>>>>>>', products);
                 $.cookie('products', products);
             }
 

@@ -5,6 +5,7 @@
             self = this;
 
             self.displayCart();
+            $('a.delete-item').on('click', self.deleteItem);
         },
 
         displayCart: function () {
@@ -21,6 +22,7 @@
                 item, amount, shipping, quantity;
 
             $('#aspnetForm table tr:not(.HeaderStyle)').each(function (index, item) {
+                var productId = $(item).find('td').eq(0).text();
                 var name = $(item).find('td').eq(1).text();
                 var num = $(item).find('td').eq(2).text();
                 var price = $(item).find('td').eq(3).text();
@@ -34,6 +36,7 @@
                 template.find('.count-wrapper .count').text(num);
                 template.find('.product-price-wrapper .product-price').text("Php " + price);
                 template.find('.total-price-wrapper .total-price').text("Php " + total);
+                template.find('.delete-item').data('product-id', productId);
                 template.removeClass('hide');
 
                 item = document.createElement("input");
@@ -65,8 +68,42 @@
             return parseInt(num) * parseFloat(amount);
         },
 
-        deleteItem: function () {
-        }
+        deleteItem: function (e) {
+            e.preventDefault();
+            var list = $.cookie('products').split('&');
+            var products = "";
+            var list_id, list_num;
+            var productId = $(this).data('product-id');
+
+
+            $(list).each(function (i, item) {
+                list_id = item.split('=')[0];
+                list_num = item.split('=')[1];
+
+                if (list_id != productId) {
+                    if (products == "") {
+                        products = self.stringifyItem(list_id, list_num);
+                    } else {
+                        products = products + "&" + self.stringifyItem(list_id, list_num);
+                    }
+                }
+            });
+
+            if (products == "") {
+                $.removeCookie("products");
+            } else {
+                $.cookie('products', products);
+            }
+            
+            $(this).closest('.product-list-wrapper').fadeOut(function() {
+                $(this).remove();
+            });
+            return false;
+        },
+
+        stringifyItem: function (id, num) {
+            return id + "=" + num;
+        },
     }
 } ();
 

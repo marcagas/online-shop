@@ -8,7 +8,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="bodyContent" Runat="Server">
     <section class="my-cart-wrapper">
         <%
-            if (Request.Cookies["products"].Value == null || Request.Cookies["products"].Value == "")
+            if (!HttpContext.Current.Request.Cookies.AllKeys.Contains("products"))
             {
                 
 

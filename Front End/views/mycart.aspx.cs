@@ -29,7 +29,7 @@ public partial class Front_End_views_mycart : System.Web.UI.Page
             Session["flash_message"] = "Login to view your cart.";
             Response.Redirect("login.aspx");
         }
-        else if (Request.Cookies["products"].Value != null && Request.Cookies["products"].Value != "")
+        else if (HttpContext.Current.Request.Cookies.AllKeys.Contains("products") && Request.Cookies["products"].Value != "")
         {
             loadProducts();
         }
