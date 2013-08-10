@@ -44,22 +44,21 @@
             var productId = $('#add-to-cart-dialog').data('product-id');
             var num = $('#item-num').val();
 
-            if (num == NaN || productId == null) {
+            if (!/^\d+$/.test(num)) {
                 return false;
             } else if (products == null || products == "") {
                 $.cookie('products', self.stringifyItem(productId, num));
             } else {
-                console.log('else>>>');
                 var list = $.cookie('products').split('&');
                 var exist = false;
-
+                var i = 0;
                 products = "";
 
                 window.list = list;
-                console.log('list', list);
                 $(list).each(function (i, item) {
                     var list_id = item.split('=')[0];
                     var list_num = item.split('=')[1];
+
 
                     if (list_id == productId) {
                         //override count of existing cookie
@@ -67,12 +66,14 @@
                         exist = true;
                     }
 
+                    console.log('list_num', list_num);
+                    if (parseInt(list_num) <= 0) { return false; }
+
                     if (products == "") {
                         products = self.stringifyItem(list_id, list_num);
                     } else {
                         products = products + "&" + self.stringifyItem(list_id, list_num);
                     }
-                    console.log('item', item);
                 });
 
                 if (!exist) {
@@ -94,7 +95,7 @@
             var price = parseFloat($('span.unit-price').text());
             var total = num * price;
 
-            $('li.total-price span').html(total);
+            $('li.total-price span').html("Php "+total);
         },
 
         checkTotal: function () {
