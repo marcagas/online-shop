@@ -58,7 +58,7 @@ public partial class Front_End_views_login : System.Web.UI.Page
                 }
                 else
                 {
-                    alertLabel.Text = "your credential are incorrect";
+                    alertLabel.Text = "Your credential are incorrect!";
                 }
 
 

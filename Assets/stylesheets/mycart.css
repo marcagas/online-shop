@@ -1,0 +1,96 @@
+﻿section.my-cart-wrapper 
+{
+    overflow: hidden;
+}
+
+section.my-cart-wrapper .cart-list, 
+section.my-cart-wrapper .cart-list ul 
+{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+section.my-cart-wrapper .cart-list 
+{
+    margin-bottom: 20px;
+}
+
+section.my-cart-wrapper .cart-list > li
+{
+    border: 1px solid #ccc;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+section.my-cart-wrapper .cart-list > li.products-list-header-wrapper li
+{
+    text-align: center !important;
+    margin: 0;
+    padding: 0;
+}
+
+section.my-cart-wrapper .cart-list > li.products-list-header-wrapper label 
+{
+    margin-top: 10px;
+}
+
+section.my-cart-wrapper .cart-list ul li
+{
+    float: left;
+    border-right: 1px solid #ccc;
+    padding: 20px;
+}
+
+section.my-cart-wrapper .cart-list li.product-list-wrapper li
+{
+    height: 140px;
+    line-height: 98px;
+}
+
+section.my-cart-wrapper .cart-list ul li:last-child 
+{
+    border: 0;
+}
+
+section.my-cart-wrapper .cart-list ul li.image-wrapper 
+{
+    width: 500px;
+}
+
+section.my-cart-wrapper .cart-list ul li.count-wrapper
+{
+    text-align: center;
+    width: 178px;
+}
+
+section.my-cart-wrapper .cart-list ul li.product-price-wrapper 
+{
+    text-align: right;
+    width: 130px;
+}
+
+section.my-cart-wrapper .cart-list ul li.total-price-wrapper
+{
+    position: relative;
+    text-align: right;
+    width: 130px;
+    position: relative;
+}
+
+section.my-cart-wrapper li.total-price-wrapper a.delete-item
+{
+    position: absolute;
+    bottom: -30px;
+    right: 22px;
+}
+
+#mycartForm .btn 
+{
+    float: right;
+}
+
+a.delete-item 
+{
+    font-size: 0.85em;
+}
