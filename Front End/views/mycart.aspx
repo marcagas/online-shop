@@ -27,10 +27,10 @@
                     </asp:GridView>
                 </form>
 
-                <form id="mycartForm" class="form-horizontal" action="https://www.paypal.com/cgi-bin/webscr?CURRENCYCODE=USD">
+                <form id="mycartForm" class="form-horizontal" action="https://www.sandbox.paypal.com/cgi-bin/webscr?CURRENCYCODE=USD">
                     <input id="cmd" type="hidden" name="cmd" value="_cart" />
                     <input id="upload" type="hidden" name="upload" value="1" />
-                    <input id="business" type="hidden" name="business" value="certified_azzztig@yahoo.com" />
+                    <input id="business" type="hidden" name="business" value="etrade2004@gmail.com" />
                     <input type="hidden" name="currency_code" value="PHP" />
 
                     <ul class="cart-list">
