@@ -8,5 +8,10 @@
 THANK YOU!
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="pageSpecificJavaScript" Runat="Server">
+    <script>
+        $(document).ready(function () {
+            $.removeCookie('products');
+        });
+    </script>
 </asp:Content>
 
