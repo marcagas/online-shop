@@ -51,7 +51,7 @@
             if (!/^\d+$/.test(num)) {
                 return false;
             } else if (products == null || products == "") {
-                $.cookie('products', self.stringifyItem(productId, num));
+                $.cookie('products', self.stringifyItem(productId, num), { path: '/' });
             } else {
                 var list = $.cookie('products').split('&');
                 var exist = false;
@@ -82,7 +82,7 @@
                 if (!exist) {
                     products = products + "&" + self.stringifyItem(productId, num);
                 }
-                $.cookie('products', products);
+                $.cookie('products', products, { path: '/' });
             }
 
             $('#add-to-cart-dialog').find('.add-success-msg').removeClass('hide');

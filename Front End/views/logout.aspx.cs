@@ -12,7 +12,8 @@ public partial class Front_End_views_logout : System.Web.UI.Page
         Session["logged_in_info"] = null;
         Session["flash_message"] = "Successfully logged out!";
         Response.Cookies["UserId"].Expires = DateTime.Now.AddDays(-1);
-        Response.Cookies["FirstName"].Expires = DateTime.Now.AddDays(-1);
+        Response.Cookies["FirstName"].Expires = DateTime.Now.AddDays(-1);        
+        Response.Cookies["products"].Expires = DateTime.Now.AddDays(-1);
         Response.Redirect("login.aspx");
     }
 }
