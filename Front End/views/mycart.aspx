@@ -8,6 +8,14 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="bodyContent" Runat="Server">
     <section class="my-cart-wrapper">
         <%
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            dic.Add("name", "marc");
+
+            Response.Write(dic["name"]);
+            string decodedUrl = HttpUtility.UrlDecode("my.aspx?val=%40Fxyz2F");
+            Response.Write(decodedUrl);
+             %>
+        <%
             if (!HttpContext.Current.Request.Cookies.AllKeys.Contains("products"))
             {
                 
@@ -20,7 +28,10 @@
 }
             else
             {
-                
+
+                /*string s = "INSERT into Sample values (" + "'elena_parse'" + ", 'just now')";
+                Response.Write(Request.QueryString["name"]);
+                Response.Write(s);*/
         %>  
                 <form id="Form1" runat="server" action="https://www.paypal.com/cgi-bin/webscr" class="hide">
                     <asp:GridView ID="cartGrid" runat="server">
@@ -30,8 +41,12 @@
                 <form id="mycartForm" class="form-horizontal" action="https://www.sandbox.paypal.com/cgi-bin/webscr?CURRENCYCODE=USD">
                     <input id="cmd" type="hidden" name="cmd" value="_cart" />
                     <input id="upload" type="hidden" name="upload" value="1" />
-                    <input id="business" type="hidden" name="business" value="etrade2004@gmail.com" />
+                    <input id="business" type="hidden" name="business" value="marcagas@gmail.com" />
                     <input type="hidden" name="currency_code" value="PHP" />
+                    <input type="hidden" name="callback_url" value="" />
+                    <input type="hidden" name="callback_timeout" value="3">
+                    <input type="hidden" name="callback_version" value="1"><!--Required! -->
+
 
                     <ul class="cart-list">
                         <li class="products-list-header-wrapper">
@@ -91,6 +106,7 @@
 
                 <div class="paypal-cart-details">
                     <input id="item1" type="hidden" name="item_name_1" value="CDR-King Mouse" />
+                    <input id="item_number1" type="hidden" name="item_number_1" value="001" />
                     <input id="amount1" type="hidden" name="amount_1" value="100.00" />
                     <input id="shipping1" type="hidden" name="shipping_1" value="5.00" />
                 </div>

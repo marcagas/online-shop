@@ -12,6 +12,7 @@ using System.Web.Security;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Text;
+using System.IO;
 
 public partial class Front_End_views_mycart : System.Web.UI.Page
 {   
@@ -32,9 +33,7 @@ public partial class Front_End_views_mycart : System.Web.UI.Page
         else if (HttpContext.Current.Request.Cookies.AllKeys.Contains("products") && Request.Cookies["products"].Value != "")
         {
             loadProducts();
-        }
-
-        
+        }               
     }
 
     private void loadProducts()

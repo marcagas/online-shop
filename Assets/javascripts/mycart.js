@@ -17,10 +17,11 @@
                 shipping_id_prefix = "shipping",
                 quantity_id_prefix = "quantity",
                 item_name_prefix = "item_name_",
+                item_number_prefix = "item_number_",
                 amount_name_prefix = "amount_",
                 shipping_name_prefix = "shipping_",
                 quantity_name_prefix = "quantity_",
-                item, amount, shipping, quantity;
+                item, item_number, amount, shipping, quantity;
 
             $('#aspnetForm table tr:not(.HeaderStyle)').each(function (index, item) {
                 var productId = $(item).find('td').eq(0).text();
@@ -47,6 +48,12 @@
                 item.type = "hidden";
                 item.value = name;
 
+                item_number = document.createElement("input");
+                item_number.id = item_number_prefix + (index + 1);
+                item_number.name = item_number_prefix + (index + 1);
+                item_number.type = "hidden";
+                item_number.value = productId;
+
                 amount = document.createElement("input");
                 amount.id = amount_id_prefix + (index + 1);
                 amount.name = amount_name_prefix + (index + 1);
@@ -60,6 +67,7 @@
                 quantity.value = num;
 
                 template.append(item);
+                template.append(item_number);
                 template.append(amount);
                 template.append(quantity);
                 cartList.append(template);

@@ -14,6 +14,7 @@ using System.Configuration;
 using System.Web.Security;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Globalization;
 
 public partial class Front_End_views_paypal : System.Web.UI.Page
 {
@@ -53,7 +54,15 @@ public partial class Front_End_views_paypal : System.Web.UI.Page
             //process payment
 
             string[] str_params = strRequest.Split('&');
-            string txn_id, payment_date, payer_email, business, payer_id, txn_type, payment_status, payment_type, mc_gross, mc_fee, mc_currency, first_name, last_name, address_street, address_city, verify_sign;
+            string txn_id, payment_date, payer_email, business, payer_id, txn_type, payment_status, payment_type, mc_fee, mc_currency, first_name, last_name, address_street, address_city, verify_sign, item_number;
+            Decimal mc_gross = new Decimal();
+            Int16 quantity;
+            string item_number_prefix = "item_number";
+            string mc_gross_prefix = "mc_gross_";
+            string quantity_prefix = "quantity";
+            string productId;
+            string sql_str;
+            SqlCommand cmd;
 
             Dictionary<string, string> dic = new Dictionary<string, string>();
 
@@ -64,31 +73,75 @@ public partial class Front_End_views_paypal : System.Web.UI.Page
 
                 if (param_key != null && param_val != null)
                 {
+                    //using (StreamWriter w = File.AppendText("C:\\Users\\marc\\Desktop\\log.txt")) { Log("param_key >>>>>>>>>>" + param_key, w); }
+                    //using (StreamWriter w = File.AppendText("C:\\Users\\marc\\Desktop\\log.txt")) { Log("param_val >>>>>>>>>>" + param_val, w); }
                     dic.Add(param_key, param_val);         
                 }      
             }
 
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["NORTHWNDConnectionString"].ConnectionString);
-            con.Open();
-                        
-            string s = "INSERT into Sample values ("+ "'" + dic["business"] + "'" + ", 'just now')";            
-            SqlCommand cmd = new SqlCommand(s, con);                                
-                        
-            cmd.ExecuteNonQuery();
-            con.Close();
-
             using (StreamWriter w = File.AppendText("C:\\Users\\marc\\Desktop\\log.txt"))
-            {                      
-                Log(strResponse, w);                
-                Log(strRequest, w);
-            }
-
-            using (StreamReader r = File.OpenText("C:\\Users\\marc\\Desktop\\log.txt"))
             {
-                DumpLog(r);
+                Log("pament status >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", w);
+                Log(dic["payment_status"], w);                
             }
+           
+            if (dic["payment_status"] == "Completed") 
+            {
+                SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["NORTHWNDConnectionString"].ConnectionString);
+                int num = Convert.ToInt32(dic["num_cart_items"]);
+                using (StreamWriter w = File.AppendText("C:\\Users\\marc\\Desktop\\log.txt"))
+                {
+                    Log(strResponse, w);
+                    Log(strRequest, w);
+                    Log(Convert.ToString(num), w);
+                }
 
-            
+                con.Open();
+                DateTime paymentDate;
+                paymentDate = ConvertPayPalDateTime(dic["payment_date"]);                
+                sql_str = "Insert into ORDERS (OrderDate, PaypalTransactionId, PaypalBusinessEmail, PaypalGross, CreatedAt) values ('" +
+                          paymentDate + "', '" + dic["txn_id"] + "', '" + dic["business"] + "', " + dic["mc_gross"] + ", '" + DateTime.Now.ToString() + "')";
+                
+                using (StreamWriter w = File.AppendText("C:\\Users\\marc\\Desktop\\log.txt")) { Log(sql_str, w); }
+                cmd = new SqlCommand(sql_str, con);
+                cmd.ExecuteNonQuery();
+
+                sql_str = "Select TOP(1) OrderID from Orders order by CreatedAt desc";
+                cmd = new SqlCommand(sql_str, con);
+                Int32 order_id = Convert.ToInt32(cmd.ExecuteScalar()); 
+               
+                using (StreamWriter w = File.AppendText("C:\\Users\\marc\\Desktop\\log.txt")) { Log(order_id.ToString(), w); }
+
+                for (int i = 1; i <= num; i++)
+                {
+                    item_number = item_number_prefix + i.ToString();
+                    mc_gross = Convert.ToDecimal(dic[mc_gross_prefix + i.ToString()]);
+                    quantity = Convert.ToInt16(dic[quantity_prefix + i.ToString()]);
+
+                    using (StreamWriter w = File.AppendText("C:\\Users\\marc\\Desktop\\log.txt")) { Log(item_number, w); }
+                    productId = dic[item_number];
+                    using (StreamWriter w = File.AppendText("C:\\Users\\marc\\Desktop\\log.txt")) { Log(productId, w); }
+
+                    // add order details per product
+                    sql_str = "Insert into OrderDetails (ProductID, UnitPrice, Quantity, OrderID, CreatedAt) values (" +
+                              Convert.ToInt32(productId) + ", " + mc_gross + ", " + quantity + ", " + order_id + ", '" + DateTime.Now.ToString() + "')";
+
+                    using (StreamWriter w = File.AppendText("C:\\Users\\marc\\Desktop\\log.txt")) { Log(sql_str, w); }
+                    cmd = new SqlCommand(sql_str, con);
+                    cmd.ExecuteNonQuery();
+
+                    // get product
+                    sql_str = "Select * from Products where ProductID = " + productId;
+                    using (StreamWriter w = File.AppendText("C:\\Users\\marc\\Desktop\\log.txt")){Log(sql_str, w);}                                    
+                    
+                    sql_str = "Update Products set ";
+                }
+
+                // deduct to database
+
+                // send an email
+                con.Close();
+            }            
             
             //NameValueCollection these_argies = HttpUtility.ParseQueryString(strResponse_copy);
             //string user_email = these_argies["payer_email"];
@@ -104,6 +157,24 @@ public partial class Front_End_views_paypal : System.Web.UI.Page
         }
     }
 
+    public static DateTime ConvertPayPalDateTime(string payPalDateTime)
+    {
+        CultureInfo enUS = new CultureInfo("en-US");
+        // accept a few different date formats because of PST/PDT timezone and slight month difference in sandbox vs. prod.
+        string[] dateFormats = { "HH:mm:ss MMM dd, yyyy PST", "HH:mm:ss MMM. dd, yyyy PST", "HH:mm:ss MMM dd, yyyy PDT", "HH:mm:ss MMM. dd, yyyy PDT",
+                             "HH:mm:ss dd MMM yyyy PST", "HH:mm:ss dd MMM. yyyy PST", "HH:mm:ss dd MMM yyyy PDT", "HH:mm:ss dd MMM. yyyy PDT"};
+        DateTime outputDateTime;
+
+        DateTime.TryParseExact(payPalDateTime, dateFormats, CultureInfo.InvariantCulture, DateTimeStyles.None, out outputDateTime);
+
+        // convert to local timezone
+        TimeZoneInfo hwZone = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+
+        outputDateTime = TimeZoneInfo.ConvertTime(outputDateTime, hwZone, TimeZoneInfo.Local);
+
+        return outputDateTime;
+    }
+
     public static void Log(string logMessage, TextWriter w)
     {
         w.Write("\r\nLog Entry : ");
@@ -112,15 +183,6 @@ public partial class Front_End_views_paypal : System.Web.UI.Page
         w.WriteLine("  :");
         w.WriteLine("  :{0}", logMessage);
         w.WriteLine("-------------------------------");
-    }
-
-    public static void DumpLog(StreamReader r)
-    {
-        string line;
-        while ((line = r.ReadLine()) != null)
-        {
-            Console.WriteLine(line);
-        }
     }
 
     public void test()
