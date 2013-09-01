@@ -19,7 +19,8 @@ using System.Net.Mail;
 using System.Net;
 
 public partial class Front_End_views_paypal : System.Web.UI.Page
-{
+{    
+    public string log_path = "C:\\Users\\marc\\Desktop\\log.txt";
     protected void Page_Load(object sender, EventArgs e)
     {
         //Post back to either sandbox or live
@@ -46,6 +47,8 @@ public partial class Front_End_views_paypal : System.Web.UI.Page
         StreamReader streamIn = new StreamReader(req.GetResponse().GetResponseStream());
         string strResponse = streamIn.ReadToEnd();
         streamIn.Close();
+
+        string message, subject;
 
         if (strResponse == "VERIFIED")
         {
@@ -79,13 +82,16 @@ public partial class Front_End_views_paypal : System.Web.UI.Page
                     //using (StreamWriter w = File.AppendText("C:\\Users\\marc\\Desktop\\log.txt")) { Log("param_val >>>>>>>>>>" + param_val, w); }
                     dic.Add(param_key, param_val);         
                 }      
-            }            
+            }
+
+            using (StreamWriter w = File.AppendText(log_path)) { Log("PAYMENT STATUS >>>>>>>>>>>>>>>>>>>>>>", w); }
+            using (StreamWriter w = File.AppendText(log_path)) { Log(dic["payment_status"], w); }
            
             if (dic["payment_status"] == "Completed") 
             {
                 SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["NORTHWNDConnectionString"].ConnectionString);
                 int num = Convert.ToInt32(dic["num_cart_items"]);
-                using (StreamWriter w = File.AppendText("C:\\Users\\marc\\Desktop\\log.txt"))
+                using (StreamWriter w = File.AppendText(log_path))
                 {
                     Log(strResponse, w);
                     Log(strRequest, w);
@@ -137,41 +143,19 @@ public partial class Front_End_views_paypal : System.Web.UI.Page
                     cmd = new SqlCommand(sql_str, con);
                     cmd.ExecuteNonQuery();
 
-                    // send an email
-                    try
-                    {
-                        //Create Mail Message Object with content that you want to send with mail.
-                        System.Net.Mail.MailMessage MyMailMessage = new System.Net.Mail.MailMessage("marclambertagas@gmail.com", "marclambertagas@gmail.com", "Thank you for purchasing with us!", "Please come again!");
-                        System.Net.Mail.SmtpClient oMail = new System.Net.Mail.SmtpClient("TryIt");
-                        //System.Net.Mail.Attachment attachment = new System.Net.Mail.Attachment(txtAttachment.Text);
-                        //MyMailMessage.Attachments.Add(attachment);
-                        MyMailMessage.IsBodyHtml = false;
-
-                        //Proper Authentication Details need to be passed when sending email from gmail
-                        System.Net.NetworkCredential mailAuthentication = new System.Net.NetworkCredential("marclambertagas@gmail.com", "theflyinga123*");
-
-                        //Smtp Mail server of Gmail is "smpt.gmail.com" and it uses port no. 587
-                        //For different server like yahoo this details changes and you can
-                        //get it from respective server.
-                        System.Net.Mail.SmtpClient mailClient = new System.Net.Mail.SmtpClient("smtp.gmail.com", 587);
-
-                        //Enable SSL
-                        mailClient.EnableSsl = true;
-
-                        mailClient.UseDefaultCredentials = false;
-
-                        mailClient.Credentials = mailAuthentication;
-
-                        mailClient.Send(MyMailMessage);
-                    }
-                    catch (Exception x)
-                    {
-                        using (StreamWriter w = File.AppendText("C:\\Users\\marc\\Desktop\\log.txt")) { Log("Sending email failed!", w); }
-                    }                    
+                    message = "<p>Thank you for purchasing with us.</p><br /><p>Etrade Enterprise</p>";
                 }
                 con.Close();
                 
-            }            
+            }
+            else if (dic["payment_status"] == "Pending")
+            {
+                using (StreamWriter w = File.AppendText(log_path)) { Log("Sending Email now >>>>>>>>>>>>>>>>>>>>>>" + dic["payer_email"], w); }                
+                message = "<p>Your order is being processed as of the moment. <br />We will send you an update once order has been accepted.</p><br /><p>Etrade Enterprise</p>";
+                subject = "Order Status";
+
+                SendEmail(dic["payer_email"], message, subject);
+            }
             
             //NameValueCollection these_argies = HttpUtility.ParseQueryString(strResponse_copy);
             //string user_email = these_argies["payer_email"];
@@ -184,6 +168,39 @@ public partial class Front_End_views_paypal : System.Web.UI.Page
         else
         {
             //log response/ipn data for manual investigation
+        }
+    }
+
+    public static void SendEmail(string recipient, string message, string subject)
+    {
+        try
+        {
+            string sender = "etrade2004@gmail.com";
+            string password = "pass2004";
+            //Create Mail Message Object with content that you want to send with mail.
+            System.Net.Mail.MailMessage MyMailMessage = new System.Net.Mail.MailMessage(sender, recipient, subject, message);
+            System.Net.Mail.SmtpClient oMail = new System.Net.Mail.SmtpClient("TryIt");
+            //System.Net.Mail.Attachment attachment = new System.Net.Mail.Attachment(txtAttachment.Text);
+            //MyMailMessage.Attachments.Add(attachment);
+            MyMailMessage.IsBodyHtml = true;
+
+            //Proper Authentication Details need to be passed when sending email from gmail
+            System.Net.NetworkCredential mailAuthentication = new System.Net.NetworkCredential(sender, password);
+
+            //Smtp Mail server of Gmail is "smpt.gmail.com" and it uses port no. 587
+            //For different server like yahoo this details changes and you can
+            //get it from respective server.
+            System.Net.Mail.SmtpClient mailClient = new System.Net.Mail.SmtpClient("smtp.gmail.com", 587);
+
+            //Enable SSL
+            mailClient.EnableSsl = true;
+            mailClient.UseDefaultCredentials = false;
+            mailClient.Credentials = mailAuthentication;
+            mailClient.Send(MyMailMessage);
+        }
+        catch (Exception x)
+        {
+            using (StreamWriter w = File.AppendText("C:\\Users\\marc\\Desktop\\log.txt")) { Log("Sending email failed!", w); }
         }
     }
 

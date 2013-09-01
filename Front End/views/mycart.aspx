@@ -7,14 +7,7 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="bodyContent" Runat="Server">
     <section class="my-cart-wrapper">
-        <%
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("name", "marc");
-
-            Response.Write(dic["name"]);
-            string decodedUrl = HttpUtility.UrlDecode("my.aspx?val=%40Fxyz2F");
-            Response.Write(decodedUrl);
-             %>
+        
         <%
             if (!HttpContext.Current.Request.Cookies.AllKeys.Contains("products"))
             {
