@@ -20,7 +20,6 @@ using System.Net;
 
 public partial class Front_End_views_paypal : System.Web.UI.Page
 {    
-    public string log_path = "C:\\Users\\marc\\Desktop\\log.txt";
     protected void Page_Load(object sender, EventArgs e)
     {
         //Post back to either sandbox or live
@@ -84,19 +83,15 @@ public partial class Front_End_views_paypal : System.Web.UI.Page
                 }      
             }
 
-            using (StreamWriter w = File.AppendText(log_path)) { Log("PAYMENT STATUS >>>>>>>>>>>>>>>>>>>>>>", w); }
-            using (StreamWriter w = File.AppendText(log_path)) { Log(dic["payment_status"], w); }
+            WriteLogs("PAYMENT STATUS >>>>>>>>>>>>>>>>>>>>>>");
+            WriteLogs(dic["payment_status"]);
            
             if (dic["payment_status"] == "Completed") 
             {
                 SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["NORTHWNDConnectionString"].ConnectionString);
                 int num = Convert.ToInt32(dic["num_cart_items"]);
-                using (StreamWriter w = File.AppendText(log_path))
-                {
-                    Log(strResponse, w);
-                    Log(strRequest, w);
-                    Log(Convert.ToString(num), w);
-                }
+                WriteLogs(strResponse);
+                WriteLogs(strRequest);
 
                 con.Open();
                 DateTime paymentDate;
@@ -104,7 +99,7 @@ public partial class Front_End_views_paypal : System.Web.UI.Page
                 sql_str = "Insert into ORDERS (OrderDate, PaypalTransactionId, PaypalBusinessEmail, PaypalGross, CreatedAt) values ('" +
                           paymentDate + "', '" + dic["txn_id"] + "', '" + dic["business"] + "', " + dic["mc_gross"] + ", '" + DateTime.Now.ToString() + "')";
                 
-                using (StreamWriter w = File.AppendText("C:\\Users\\marc\\Desktop\\log.txt")) { Log(sql_str, w); }
+                WriteLogs(sql_str);
                 cmd = new SqlCommand(sql_str, con);
                 cmd.ExecuteNonQuery();
 
@@ -112,29 +107,28 @@ public partial class Front_End_views_paypal : System.Web.UI.Page
                 cmd = new SqlCommand(sql_str, con);
                 Int32 order_id = Convert.ToInt32(cmd.ExecuteScalar()); 
                
-                using (StreamWriter w = File.AppendText("C:\\Users\\marc\\Desktop\\log.txt")) { Log(order_id.ToString(), w); }
-
+                WriteLogs("OrderId - " + order_id.ToString());
                 for (int i = 1; i <= num; i++)
                 {
                     item_number = item_number_prefix + i.ToString();
                     mc_gross = Convert.ToDecimal(dic[mc_gross_prefix + i.ToString()]);
                     quantity = Convert.ToInt16(dic[quantity_prefix + i.ToString()]);
 
-                    using (StreamWriter w = File.AppendText("C:\\Users\\marc\\Desktop\\log.txt")) { Log(item_number, w); }
+                    WriteLogs(item_number);
                     productId = dic[item_number];
-                    using (StreamWriter w = File.AppendText("C:\\Users\\marc\\Desktop\\log.txt")) { Log(productId, w); }
+                    WriteLogs(productId);
 
                     // add order details per product
                     sql_str = "Insert into OrderDetails (ProductID, UnitPrice, Quantity, OrderID, CreatedAt) values (" +
                               Convert.ToInt32(productId) + ", " + mc_gross + ", " + quantity + ", " + order_id + ", '" + DateTime.Now.ToString() + "')";
 
-                    using (StreamWriter w = File.AppendText("C:\\Users\\marc\\Desktop\\log.txt")) { Log(sql_str, w); }
+                    WriteLogs(sql_str);
                     cmd = new SqlCommand(sql_str, con);
                     cmd.ExecuteNonQuery();
 
                     // get product
                     sql_str = "Select * from Products where ProductID = " + productId;
-                    using (StreamWriter w = File.AppendText("C:\\Users\\marc\\Desktop\\log.txt")){Log(sql_str, w);}                                    
+                    WriteLogs(sql_str);
                     
                     sql_str = "Update Products set ";
 
@@ -150,7 +144,7 @@ public partial class Front_End_views_paypal : System.Web.UI.Page
             }
             else if (dic["payment_status"] == "Pending")
             {
-                using (StreamWriter w = File.AppendText(log_path)) { Log("Sending Email now >>>>>>>>>>>>>>>>>>>>>>" + dic["payer_email"], w); }                
+                WriteLogs("Sending Email now >>>>>>>>>>>>>>>>>>>>>>" + dic["payer_email"]);                
                 message = "<p>Your order is being processed as of the moment. <br />We will send you an update once order has been accepted.</p><br /><p>Etrade Enterprise</p>";
                 subject = "Order Status";
 
@@ -169,6 +163,11 @@ public partial class Front_End_views_paypal : System.Web.UI.Page
         {
             //log response/ipn data for manual investigation
         }
+    }
+
+    public static void WriteLogs(string message)
+    {
+        using (StreamWriter w = File.AppendText("C:\\Users\\marc\\Desktop\\log.txt")) { Log(message, w); }
     }
 
     public static void SendEmail(string recipient, string message, string subject)
@@ -200,7 +199,7 @@ public partial class Front_End_views_paypal : System.Web.UI.Page
         }
         catch (Exception x)
         {
-            using (StreamWriter w = File.AppendText("C:\\Users\\marc\\Desktop\\log.txt")) { Log("Sending email failed!", w); }
+            WriteLogs("Sending email failed! - " + recipient);
         }
     }
 
