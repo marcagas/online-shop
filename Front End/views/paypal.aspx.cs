@@ -138,6 +138,8 @@ public partial class Front_End_views_paypal : System.Web.UI.Page
                     cmd.ExecuteNonQuery();
 
                     message = "<p>Thank you for purchasing with us.</p><br /><p>Etrade Enterprise</p>";
+                    subject = "Order Confirmation";
+                    SendEmail(dic["payer_email"], message, subject);
                 }
                 con.Close();
                 
