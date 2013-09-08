@@ -85,7 +85,9 @@
                 $.cookie('products', products, { path: '/' });
             }
 
-            $('#add-to-cart-dialog').find('.add-success-msg').removeClass('hide');
+            window.location.href = 'mycart.aspx';
+            //$('#add-to-cart-dialog').find('.add-success-msg').removeClass('hide');
+
         },
 
         stringifyItem: function (id, num) {
