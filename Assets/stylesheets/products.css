@@ -193,6 +193,18 @@ section.products-categories-show ul.products-list .add-to-cart-wrapper
     margin: 7px 15px 0 0;
 }
 
+#add-to-cart-dialog .dialog-footer .action .out-of-stock-msg 
+{
+    float: left;
+    margin: 7px 15px 0 0;
+    color: #f55;
+}
+
+#add-to-cart-dialog .dialog-footer i.icon-warning-sign 
+{
+    margin-right: 4px;
+}
+
 #add-to-cart-dialog .dialog-footer .buttons-wrapper
 {
     float: right;

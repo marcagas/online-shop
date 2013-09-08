@@ -108,7 +108,8 @@
                         View My Cart
                     </a>
                     <div class="action">
-                        <p class="add-success-msg hide"><i class="icon-check"></i> Successfully Added Item to Cart!</p>
+                        <p class="add-success-msg hide"><i class="icon-check"></i>Successfully Added Item to Cart!</p>
+                        <p class="out-of-stock-msg hide"><i class="icon-warning-sign"></i>Stock is below the current value.</p>
                         <div class="buttons-wrapper">
                             <button type="button" class="btn btn-primary btn-add">
                                 Add

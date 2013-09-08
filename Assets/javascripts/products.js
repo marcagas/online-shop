@@ -25,6 +25,7 @@
                         dialog.find('span.unit-price').text($this.data('product-price'));
                         dialog.find('span.available-stocks').text($this.data('available-stocks'));
                         dialog.data('product-id', $this.data('product-id'));
+                        dialog.data('available-stocks', $this.data('available-stocks'));
                         dialog.find('#item-num').val(1);
 
                         self.computeTotal();
@@ -46,9 +47,13 @@
         addToCart: function (e) {
             var products = $.cookie('products');
             var productId = $('#add-to-cart-dialog').data('product-id');
+            var stocks = $('#add-to-cart-dialog').data('available-stocks');
             var num = $('#item-num').val();
 
             if (!/^\d+$/.test(num)) {
+                return false;
+            } else if (parseInt(num) > parseInt(stocks)) {
+                $('#add-to-cart-dialog').find('.out-of-stock-msg').removeClass('hide');
                 return false;
             } else if (products == null || products == "") {
                 $.cookie('products', self.stringifyItem(productId, num), { path: '/' });
