@@ -8,10 +8,11 @@
 THANK YOU!
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="pageSpecificJavaScript" Runat="Server">
+    <script src="../../assets/javascripts/thankyou.js" type="text/javascript"></script>
     <script>
         $(document).ready(function () {
             $.removeCookie('products');
         });
-    </script>
+    </script>    
 </asp:Content>
 

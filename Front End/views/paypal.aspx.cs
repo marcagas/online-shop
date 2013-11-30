@@ -83,31 +83,44 @@ public partial class Front_End_views_paypal : System.Web.UI.Page
                 }      
             }
 
-            WriteLogs("PAYMENT STATUS >>>>>>>>>>>>>>>>>>>>>>");
-            WriteLogs(dic["payment_status"]);
+            //WriteLogs("PAYMENT STATUS >>>>>>>>>>>>>>>>>>>>>>");
+            //WriteLogs(dic["payment_status"]);
            
             if (dic["payment_status"] == "Completed") 
             {
                 SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["NORTHWNDConnectionString"].ConnectionString);
                 int num = Convert.ToInt32(dic["num_cart_items"]);
-                WriteLogs(strResponse);
-                WriteLogs(strRequest);
+                //WriteLogs(strResponse);
+                //WriteLogs(strRequest);
 
                 con.Open();
                 DateTime paymentDate;
                 paymentDate = ConvertPayPalDateTime(dic["payment_date"]);                
-                sql_str = "Insert into ORDERS (OrderDate, PaypalTransactionId, PaypalBusinessEmail, PaypalGross, CreatedAt) values ('" +
-                          paymentDate + "', '" + dic["txn_id"] + "', '" + dic["business"] + "', " + dic["mc_gross"] + ", '" + DateTime.Now.ToString() + "')";
+                sql_str = "Insert into ORDERS (OrderDate, UserId, PaypalTransactionId, PaypalBusinessEmail, PaypalGross, CreatedAt) values ('" +
+                          paymentDate + "', '" + dic["custom"] + "', '" + dic["txn_id"] + "', '" + dic["business"] + "', " + dic["mc_gross"] + ", '" + DateTime.Now.ToString() + "')";
                 
                 WriteLogs(sql_str);
-                cmd = new SqlCommand(sql_str, con);
-                cmd.ExecuteNonQuery();
+                try
+                {
+                    WriteLogs("executing >>>>>>>>>>>>>>");
+                    cmd = new SqlCommand(sql_str, con);
+                    cmd.ExecuteNonQuery();
+                }
+                catch (SystemException except)
+                {
+                    WriteLogs(except.Message);
+                }
 
                 sql_str = "Select TOP(1) OrderID from Orders order by CreatedAt desc";
                 cmd = new SqlCommand(sql_str, con);
-                Int32 order_id = Convert.ToInt32(cmd.ExecuteScalar()); 
+                WriteLogs("cmd.executescalar");
+                cmd.ExecuteScalar();
+                Int32 order_id = (Int32)cmd.ExecuteScalar(); 
+                WriteLogs("after cmd.executescalar"+order_id.ToString());
                
                 WriteLogs("OrderId - " + order_id.ToString());
+                WriteLogs(">>>>>>>>>>>>>>>>>> number of items ");
+                WriteLogs(num.ToString());
                 for (int i = 1; i <= num; i++)
                 {
                     item_number = item_number_prefix + i.ToString();
@@ -123,8 +136,18 @@ public partial class Front_End_views_paypal : System.Web.UI.Page
                               Convert.ToInt32(productId) + ", " + mc_gross + ", " + quantity + ", " + order_id + ", '" + DateTime.Now.ToString() + "')";
 
                     WriteLogs(sql_str);
-                    cmd = new SqlCommand(sql_str, con);
-                    cmd.ExecuteNonQuery();
+                    try
+                    {
+                        cmd = new SqlCommand(sql_str, con);
+                        cmd.ExecuteNonQuery();
+                        WriteLogs("successful insert >>>>>>>>>>>>>");
+                    }
+                    catch (SystemException except)
+                    {
+                        WriteLogs("failed insert >>>>>>>>>>>>>");
+                        WriteLogs(except.Message);
+                    }
+                    
 
                     // get product
                     sql_str = "Select * from Products where ProductID = " + productId;
@@ -136,21 +159,22 @@ public partial class Front_End_views_paypal : System.Web.UI.Page
                     sql_str = "Update products set unitsinstock=(unitsinstock-" + quantity + ") where ProductId=" + productId;
                     cmd = new SqlCommand(sql_str, con);
                     cmd.ExecuteNonQuery();
-
-                    message = "<p>Thank you for purchasing with us.</p><br /><p>Etrade Enterprise</p>";
-                    subject = "Order Confirmation";
-                    SendEmail(dic["payer_email"], message, subject);
+                                        
                 }
+                WriteLogs("success insert to product details >>>>>>>>>>>>>>>>>>>>>>>>");
+                //message = "<p>Thank you for purchasing with us.</p><br /><p>Etrade Enterprise</p>";
+                //subject = "Order Confirmation";
+                //SendEmail(dic["payer_email"], message, subject);
                 con.Close();
                 
             }
             else if (dic["payment_status"] == "Pending")
             {
                 WriteLogs("Sending Email now >>>>>>>>>>>>>>>>>>>>>>" + dic["payer_email"]);                
-                message = "<p>Your order is being processed as of the moment. <br />We will send you an update once order has been accepted.</p><br /><p>Etrade Enterprise</p>";
-                subject = "Order Status";
+                //message = "<p>Your order is being processed as of the moment. <br />We will send you an update once order has been accepted.</p><br /><p>Etrade Enterprise</p>";
+                //subject = "Order Status";
 
-                SendEmail(dic["payer_email"], message, subject);
+                //SendEmail(dic["payer_email"], message, subject);
             }
             
             //NameValueCollection these_argies = HttpUtility.ParseQueryString(strResponse_copy);
@@ -236,5 +260,10 @@ public partial class Front_End_views_paypal : System.Web.UI.Page
     public void test()
     {
 
+    }
+
+    public static string getStatus() 
+    {
+        return "test";
     }
 }

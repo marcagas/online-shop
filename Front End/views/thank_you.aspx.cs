@@ -13,6 +13,6 @@ public partial class Front_End_views_thank_you : System.Web.UI.Page
         // delete products cookies        
         // TODO investigate on why server does not delete cookies
         // research on proper way to delete cookies in server
-        Response.Cookies["products"].Expires = DateTime.Now.AddDays(-1);
+        //Response.Cookies["products"].Expires = DateTime.Now.AddDays(-1);
     }
 }
