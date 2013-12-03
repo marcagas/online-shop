@@ -162,9 +162,10 @@ public partial class Front_End_views_paypal : System.Web.UI.Page
                                         
                 }
                 WriteLogs("success insert to product details >>>>>>>>>>>>>>>>>>>>>>>>");
-                //message = "<p>Thank you for purchasing with us.</p><br /><p>Etrade Enterprise</p>";
-                //subject = "Order Confirmation";
-                //SendEmail(dic["payer_email"], message, subject);
+                message = "<p>Thank you for purchasing with us.</p><br />" + "https://onlineshop.pagekite.me/online-shop/Front%20End/views/receipt.aspx?id=" + dic["txn_id"] + "<p>Etrade Enterprise</p>";
+                WriteLogs(message);
+                subject = "Order Confirmation";
+                SendEmail(dic["payer_email"], message, subject);
                 con.Close();
                 
             }
