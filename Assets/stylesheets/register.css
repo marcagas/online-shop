@@ -16,3 +16,25 @@ section.new-user-wrapper label.error
     color: #f55;
     font-weight: normal;
 }
+
+section.new-user-wrapper .terms-and-conditions 
+{
+    margin: 0 0 0 165px;
+}
+
+section.new-user-wrapper .control-label 
+{
+    text-align: left;
+    padding: 0;
+}
+
+section.new-user-wrapper #terms .modal-body 
+{
+    height: 400px;
+    overflow-y: scroll; 
+}
+
+section.new-user-wrapper .terms-and-conditions label.error 
+{
+    left: 381px;
+}

@@ -17,7 +17,9 @@
                 required: true
             },
             "ctl00$bodyContent$addressTxt": "required",
-            "ctl00$bodyContent$mobileNumTxt": "required"
+            "ctl00$bodyContent$mobileNumTxt": "required",
+            "terms": "required"
+
         }
     });
 });
