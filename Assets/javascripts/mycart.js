@@ -102,7 +102,7 @@
             if (products == "") {
                 $.removeCookie("products");
             } else {
-                $.cookie('products', products);
+                $.cookie('products', products, { path: '/' });
             }
             
             $(this).closest('.product-list-wrapper').fadeOut(function() {
