@@ -34,7 +34,7 @@
                 <form id="mycartForm" class="form-horizontal" action="https://www.sandbox.paypal.com/cgi-bin/webscr?CURRENCYCODE=USD">
                     <input id="cmd" type="hidden" name="cmd" value="_cart" />
                     <input id="upload" type="hidden" name="upload" value="1" />
-                    <input id="business" type="hidden" name="business" value="jean23@gmail.com" />
+                    <input id="business" type="hidden" name="business" value="nikkiongbusiness2@gmail.com" />
                     <input type="hidden" name="currency_code" value="PHP" />
                     <input type="hidden" name="custom" value="<%= Request.Cookies["UserId"].Value %>" />
                     <input type="hidden" name="callback_url" value="" />
