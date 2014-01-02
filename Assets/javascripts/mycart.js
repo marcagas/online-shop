@@ -7,6 +7,8 @@
             self.displayCart();
             $('a.delete-item').on('click', self.deleteItem);
             $('.fancybox').fancybox();
+
+            $('input.count').on('change', self.updateProductQuantity);
         },
 
         displayCart: function () {
@@ -36,7 +38,7 @@
                 template.find('.image-wrapper .fancybox').attr('href', img);
                 template.find('.image-wrapper img').attr('src', img);
                 template.find('.image-wrapper label').text(name);
-                template.find('.count-wrapper .count').text(num);
+                template.find('.count-wrapper .count').val(num);
                 template.find('.product-price-wrapper .product-price').text("Php " + price);
                 template.find('.total-price-wrapper .total-price').text("Php " + total);
                 template.find('.delete-item').data('product-id', productId);
@@ -65,6 +67,7 @@
                 quantity.name = quantity_name_prefix + (index + 1);
                 quantity.type = "hidden";
                 quantity.value = num;
+                quantity.className = "quantity";
 
                 template.append(item);
                 template.append(item_number);
@@ -72,6 +75,19 @@
                 template.append(quantity);
                 cartList.append(template);
             });
+        },
+
+        updateProductQuantity: function(e) {
+            e.preventDefault();
+            
+            var $this = $(this);
+            if ($this.val() < 0) {
+                $this.val(1);
+            }
+
+            $this.closest('.product-list-wrapper').find('input.quantity').val($this.val());
+
+            return false;
         },
 
         computeTotal: function (num, amount) {

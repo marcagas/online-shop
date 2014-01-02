@@ -68,7 +68,10 @@
                                     <label>AVG Product</label>
                                 </li>
                                 <li class="count-wrapper">
-                                    <span class="count">1</span>
+                                    <div class="row">
+                                        <input type="number" value=1 class="count" min="1"/>
+                                        </div>
+                                    <!--<span class="count">1</span>-->
                                 </li>
                                 <li class="product-price-wrapper">
                                     <span class="product-price">12, 000.00</span>

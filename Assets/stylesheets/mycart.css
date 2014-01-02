@@ -96,6 +96,14 @@ section.my-cart-wrapper li.total-price-wrapper a.edit-item
     font-size: 0.85em;
 }
 
+section.my-cart-wrapper li.count-wrapper .count 
+{
+    padding: 0;
+    margin: 0;
+    line-height: 30px;
+    text-align: center !important;
+}
+
 #mycartForm .btn 
 {
     float: right;
