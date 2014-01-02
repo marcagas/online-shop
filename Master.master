@@ -88,7 +88,14 @@
                             }
                          %>                        
                         <li><a href="help.aspx" class="sub-links">Help</a></li>
+                        
                     </ul>
+                </li>
+                <li class="search-wrapper float-rt">
+                    <form action="search.aspx" class="form-inline">
+                        <input id="Text1" name="product" type="text" placeholder="Product Search" />
+                        <i class="icon-search"></i>
+                    </form>
                 </li>
                     
             </ul>

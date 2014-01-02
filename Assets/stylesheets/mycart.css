@@ -87,6 +87,15 @@ section.my-cart-wrapper li.total-price-wrapper a.delete-item
     font-size: 0.85em;
 }
 
+section.my-cart-wrapper li.total-price-wrapper a.edit-item
+{
+    position: absolute;
+    bottom: 15px;
+    right: 65px;
+    line-height: 20px;
+    font-size: 0.85em;
+}
+
 #mycartForm .btn 
 {
     float: right;

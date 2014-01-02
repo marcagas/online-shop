@@ -73,6 +73,19 @@ body > footer p
     border-bottom: 1px solid #ccc;
 }
 
+#wrapper > nav .search-wrapper 
+{
+    margin: 0 10px;
+    float: right;
+}
+
+#wrapper .search-wrapper form i.icon-search 
+{
+    top: 10px;
+    position: absolute;
+    right: 10px;
+}
+
 #wrapper header h1 a 
 {
     color: #fff;
