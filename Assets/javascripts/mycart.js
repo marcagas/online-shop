@@ -61,6 +61,7 @@
                 amount.name = amount_name_prefix + (index + 1);
                 amount.type = "hidden";
                 amount.value = price;
+                amount.className = "amount";
 
                 quantity = document.createElement("input");
                 quantity.id = quantity_id_prefix + (index + 1);
@@ -85,7 +86,14 @@
                 $this.val(1);
             }
 
-            $this.closest('.product-list-wrapper').find('input.quantity').val($this.val());
+            var $wrapper = $this.closest('.product-list-wrapper');
+            $wrapper.find('input.quantity').val($this.val());
+
+            var price = $this.closest('.product-list-wrapper').last().find('span.product-price').text().split(' ')[1];
+            console.log('price', price);
+            var newPrice = parseFloat(price) * parseInt($this.val());
+            console.log('new price', newPrice);
+            $wrapper.find('span.total-price').text("Php " + newPrice.toString());            
 
             return false;
         },
