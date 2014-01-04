@@ -10,6 +10,6 @@ public partial class Reports_OrderReportSummary : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        orderdetailssource.SelectParameters["emp"].DefaultValue = Request.Cookies["FirstName"].Value;
     }
 }
