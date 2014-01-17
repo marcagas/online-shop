@@ -26,6 +26,11 @@ public partial class BACKEND_BackEndLoginPage : System.Web.UI.Page
 
         if (rdr.HasRows)
         {
+            while (rdr.Read())
+            {
+                Response.Write(rdr[3].ToString());
+                Response.Cookies["FirstName"].Value = rdr[3].ToString();
+            }
             Response.Redirect("Default.aspx");
         }
     }
