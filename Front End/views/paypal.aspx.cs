@@ -61,7 +61,7 @@ public partial class Front_End_views_paypal : System.Web.UI.Page
             string txn_id, payment_date, payer_email, business, payer_id, txn_type, payment_status, payment_type, mc_fee, mc_currency, first_name, last_name, address_street, address_city, verify_sign, item_number;
             Decimal mc_gross = new Decimal();
             Decimal vat = new Decimal();
-            Decimal total_with_vat = new Decimal();
+            Decimal total = new Decimal();
             Int16 quantity;
             string item_number_prefix = "item_number";
             string mc_gross_prefix = "mc_gross_";
@@ -81,7 +81,9 @@ public partial class Front_End_views_paypal : System.Web.UI.Page
                 {
                     //using (StreamWriter w = File.AppendText("C:\\Users\\marc\\Desktop\\log.txt")) { Log("param_key >>>>>>>>>>" + param_key, w); }
                     //using (StreamWriter w = File.AppendText("C:\\Users\\marc\\Desktop\\log.txt")) { Log("param_val >>>>>>>>>>" + param_val, w); }
-                    dic.Add(param_key, param_val);         
+                    dic.Add(param_key, param_val);
+                    WriteLogs(param_key.ToString());
+                    WriteLogs(param_val.ToString());
                 }      
             }
 
@@ -98,12 +100,15 @@ public partial class Front_End_views_paypal : System.Web.UI.Page
                 con.Open();
                 DateTime paymentDate;
                 paymentDate = ConvertPayPalDateTime(dic["payment_date"]);
-
-                vat = Convert.ToDecimal(dic["mc_gross"]) * Convert.ToDecimal(0.12);
-                total_with_vat = vat + Convert.ToDecimal(dic["mc_gross"]);
+                
+                total = Convert.ToDecimal(dic["mc_gross"]) / Convert.ToDecimal(1.12);
+                WriteLogs(total.ToString());
+                vat = Convert.ToDecimal(dic["mc_gross"]) - total;
+                WriteLogs(vat.ToString());
+                WriteLogs(dic["mc_gross"].ToString());
                 
                 sql_str = "Insert into ORDERS (OrderDate, UserId, PaypalTransactionId, PaypalBusinessEmail, PaypalGross, CreatedAt, Vat, TotalWithVat) values ('" +
-                          paymentDate + "', '" + dic["custom"] + "', '" + dic["txn_id"] + "', '" + dic["business"] + "', '" + dic["mc_gross"] + "', '" + DateTime.Now.ToString() + "', '" + vat + "', '" + total_with_vat + "')";
+                          paymentDate + "', '" + dic["custom"] + "', '" + dic["txn_id"] + "', '" + dic["business"] + "', '" + total + "', '" + DateTime.Now.ToString() + "', '" + vat + "', '" + dic["mc_gross"] + "')";
                 
                 WriteLogs(sql_str);
                 try
