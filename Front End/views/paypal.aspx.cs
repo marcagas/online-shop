@@ -135,8 +135,8 @@ public partial class Front_End_views_paypal : System.Web.UI.Page
                 for (int i = 1; i <= num; i++)
                 {
                     item_number = item_number_prefix + i.ToString();
-                    mc_gross = Convert.ToDecimal(dic[mc_gross_prefix + i.ToString()]);
                     quantity = Convert.ToInt16(dic[quantity_prefix + i.ToString()]);
+                    mc_gross = Convert.ToDecimal(dic[mc_gross_prefix + i.ToString()])/quantity;
 
                     WriteLogs(item_number);
                     productId = dic[item_number];
