@@ -3,23 +3,47 @@
 <%@ Register assembly="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" namespace="Microsoft.Reporting.WebForms" tagprefix="rsweb" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
-    <asp:scriptmanager id="ScriptManager1" runat="server" enablepagemethods="true" />
-
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
     <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" 
-        Font-Size="8pt" InteractiveDeviceInfos="(Collection)" 
-        WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt">
-        <LocalReport ReportPath="Reports\Report3.rdlc">
+        Font-Size="8pt" Height="629px" InteractiveDeviceInfos="(Collection)" 
+        WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="1222px">
+        <LocalReport ReportPath="Reports\EmployeeReport.rdlc">
             <DataSources>
-                <rsweb:ReportDataSource DataSourceId="SqlDataSource1" Name="EmployeeDataSet" />
+                <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSet1" />
             </DataSources>
         </LocalReport>
     </rsweb:ReportViewer>
-    <asp:HyperLink ID="HyperLink2" runat="server" 
-        NavigateUrl="~/Management/EmployeePage.aspx">Cancel</asp:HyperLink>
+    <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" 
+        DeleteMethod="Delete" InsertMethod="Insert" 
+        OldValuesParameterFormatString="original_{0}" SelectMethod="GetData" 
+        TypeName="EmpDataSetTableAdapters.UDetailTableAdapter" UpdateMethod="Update">
+        <DeleteParameters>
+            <asp:Parameter Name="Original_ID" Type="Int32" />
+        </DeleteParameters>
+        <InsertParameters>
+            <asp:Parameter Name="FirstName" Type="String" />
+            <asp:Parameter Name="LastName" Type="String" />
+            <asp:Parameter Name="UserId" Type="String" />
+            <asp:Parameter Name="Pwd" Type="String" />
+            <asp:Parameter Name="Adress" Type="String" />
+            <asp:Parameter Name="Mob" Type="Decimal" />
+            <asp:Parameter Name="Email" Type="String" />
+        </InsertParameters>
+        <SelectParameters>
+            <asp:CookieParameter CookieName="FirstName" Name="emp" Type="String" />
+        </SelectParameters>
+        <UpdateParameters>
+            <asp:Parameter Name="FirstName" Type="String" />
+            <asp:Parameter Name="LastName" Type="String" />
+            <asp:Parameter Name="UserId" Type="String" />
+            <asp:Parameter Name="Pwd" Type="String" />
+            <asp:Parameter Name="Adress" Type="String" />
+            <asp:Parameter Name="Mob" Type="Decimal" />
+            <asp:Parameter Name="Email" Type="String" />
+            <asp:Parameter Name="Original_ID" Type="Int32" />
+        </UpdateParameters>
+    </asp:ObjectDataSource>
     </br>
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-        ConnectionString="<%$ ConnectionStrings:NORTHWNDConnectionString %>" 
-        SelectCommand="SELECT [EmpId], [EmpTitle], [TitleOfCourtesy], [FirstName], [LastName], [BirthDate], [HireDate], [Address], [HomePhone], [UserName], [Password], [EmailAddress] FROM [empAccount]">
-    </asp:SqlDataSource>
-</asp:Content>
+    </asp:Content>
 
