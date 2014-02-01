@@ -34,7 +34,7 @@ public partial class Reports_OrderReportSummary : System.Web.UI.Page
               "UDetail.Email, Products.ProductName, Products.ProductID, OrderDetails.UnitPrice, OrderDetails.Quantity, " +
               "Orders.PaypalGross, Orders.OrderDate, @emp AS employee FROM Orders INNER JOIN OrderDetails ON " +
               "Orders.OrderID = OrderDetails.OrderID INNER JOIN Products ON OrderDetails.ProductID = Products.ProductID "+
-              "INNER JOIN UDetail ON Orders.UserId = UDetail.ID where OrderDate >= @start_date AND OrderDate <= @end_date";
+              "INNER JOIN UDetail ON Orders.UserId = UDetail.ID where orderdate between @start_date and @end_date";
 
         cmd = new SqlCommand(str, con);
         string user = Request.Cookies["FirstName"].Value;
