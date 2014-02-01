@@ -120,7 +120,7 @@
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        Orders.OrderID, Orders.PaypalTransactionId, UDetail.FirstName, UDetail.LastName, UDetail.Email, Products.ProductName, Products.ProductID, 
-                         OrderDetails.UnitPrice, OrderDetails.Quantity, Orders.PaypalGross, Orders.OrderDate, @emp AS employee
+                         OrderDetails.UnitPrice, OrderDetails.Quantity, Orders.PaypalGross, Orders.OrderDate, @emp AS employee, Orders.TotalWithVat
 FROM            Orders INNER JOIN
                          OrderDetails ON Orders.OrderID = OrderDetails.OrderID INNER JOIN
                          Products ON OrderDetails.ProductID = Products.ProductID INNER JOIN
@@ -145,6 +145,7 @@ FROM            Orders INNER JOIN
               <Mapping SourceColumn="PaypalGross" DataSetColumn="PaypalGross" />
               <Mapping SourceColumn="OrderDate" DataSetColumn="OrderDate" />
               <Mapping SourceColumn="employee" DataSetColumn="employee" />
+              <Mapping SourceColumn="TotalWithVat" DataSetColumn="TotalWithVat" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -265,6 +266,7 @@ FROM            Orders INNER JOIN
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="TotalWithVat" msprop:Generator_ColumnVarNameInTable="columnTotalWithVat" msprop:Generator_ColumnPropNameInRow="TotalWithVat" msprop:Generator_ColumnPropNameInTable="TotalWithVatColumn" msprop:Generator_UserColumnName="TotalWithVat" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
