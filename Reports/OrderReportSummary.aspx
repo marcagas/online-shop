@@ -24,9 +24,10 @@
     </rsweb:ReportViewer>
     <asp:SqlDataSource ID="orderdetailssource" runat="server" 
         ConnectionString="<%$ ConnectionStrings:NORTHWNDConnectionString %>" 
-        SelectCommand="SELECT UDetail.*, Products.*, OrderDetails.*, Orders.*, @emp as employee FROM OrderDetails INNER JOIN Orders ON OrderDetails.OrderID = Orders.OrderID INNER JOIN Products ON OrderDetails.ProductID = Products.ProductID INNER JOIN UDetail ON Orders.UserId = UDetail.ID">
+        
+        SelectCommand="SELECT UDetail.*, Products.*, OrderDetails.*, Orders.*, @emp as employee FROM OrderDetails INNER JOIN Orders ON OrderDetails.OrderID = Orders.OrderID INNER JOIN Products ON OrderDetails.ProductID = Products.ProductID INNER JOIN UDetail ON Orders.UserId = UDetail.ID Order By Orders.OrderId">
         <SelectParameters>
-            <asp:Parameter Name="emp"/>
+            <asp:Parameter Name="emp" DefaultValue=""/>
         </SelectParameters>
     </asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server"></asp:SqlDataSource>
