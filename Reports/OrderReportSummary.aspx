@@ -4,6 +4,12 @@
     Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
+    <div class="row">
+        <asp:TextBox ID="TextBox1" runat="server" placeholder="From"></asp:TextBox>
+        <asp:TextBox ID="TextBox2" runat="server" placeholder="To"></asp:TextBox>
+        <asp:Button ID="Button1" runat="server" Text="Filter" onclick="Button1_Click" />
+    </div>
+    
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
     <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" 
