@@ -30,11 +30,8 @@ public partial class Reports_OrderReportSummary : System.Web.UI.Page
 
         DataSet ds = new DataSet();
         SqlDataAdapter da = new SqlDataAdapter();
-        str = "SELECT Orders.OrderID, Orders.PaypalTransactionId, UDetail.FirstName, UDetail.LastName, "+
-              "UDetail.Email, Products.ProductName, Products.ProductID, OrderDetails.UnitPrice, OrderDetails.Quantity, " +
-              "Orders.PaypalGross, Orders.OrderDate, @emp AS employee FROM Orders INNER JOIN OrderDetails ON " +
-              "Orders.OrderID = OrderDetails.OrderID INNER JOIN Products ON OrderDetails.ProductID = Products.ProductID "+
-              "INNER JOIN UDetail ON Orders.UserId = UDetail.ID where orderdate between @start_date and DateAdd(d, 1, @end_date)";
+
+        str = "SELECT UDetail.*, Products.*, OrderDetails.*, Orders.*, @emp as employee FROM OrderDetails INNER JOIN Orders ON OrderDetails.OrderID = Orders.OrderID INNER JOIN Products ON OrderDetails.ProductID = Products.ProductID INNER JOIN UDetail ON Orders.UserId = UDetail.ID where orderdate between @start_date and DateAdd(d, 1, @end_date) Order By Orders.OrderId";
 
         cmd = new SqlCommand(str, con);
         string user = Request.Cookies["FirstName"].Value;
