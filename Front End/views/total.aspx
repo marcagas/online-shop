@@ -20,7 +20,10 @@
             <label class="control-label">Branch Url: </label>
             <input type="text" class="form-control txt-branch"/>
         </div>
+
+        <button type="submit" id="reset-report" class="btn btn-reset btn-default">Reset Report</button>
         <button type="submit" id="generate-report" class="btn btn-generate btn-default">Generate Report</button>
+
         <img src="../../assets/images/ajax-loader.gif" class="hide" id="generate-loader"/>
     </form>
     </div>
@@ -29,6 +32,47 @@
         $(document).ready(function () {
             $('form').submit(function () {
                 return false;
+            });
+
+            $('#reset-report').on('click', function (e) {
+                e.preventDefault();
+
+                $(this).attr('disabled', 'disabled');
+                //show loader
+                $('#generate-loader').removeClass('hide');
+
+                var url;
+                url = $('.txt-branch').val();
+
+                $.ajax({
+                    url: url,
+                    dataType: 'json',
+                    type: 'GET',
+                    success: function (data) {
+                        window.data = data;
+                        var len;
+                        var i = 0;
+                        len = data.length;
+                        for (i = 0; i < len; i++) {
+                            $.ajax({
+                                url: "/online-shop/Front%20End/views/total_reset.aspx",
+                                type: 'GET',
+                                data: { id: data[i].ProductID, total: 0 },
+                                success: function (d) {
+                                    window.d = d;
+                                },
+                                complete: function () {
+                                    if (i == len) {
+                                        $('#generate-loader').addClass('hide');
+                                        $('#reset-report').removeAttr('disabled');
+                                    }
+                                }
+                            });
+                        }
+
+                    }
+                });
+
             });
 
             $('#generate-report').on('click', function (e) {
@@ -46,50 +90,30 @@
                 $('.txt-branch').each(function () {
                     url = $(this).val();
 
+                    //if (url == "") { return };
+
+                    console.log("send ajax now .>>>");
                     $.ajax({
                         url: url,
                         dataType: 'json',
                         type: 'GET',
                         success: function (data) {
                             window.data = data;
-                            var allow_save = false;
-                            var posted = false;
-
-                            // reset database
-                            if (!reset_done) {
-                                reset_done = true;
+                            var i = 0;
+                            len = data.length;
+                            for (i = 0; i < len; i++) {
+                                // post to save the data
+                                console.log('product id', data[i].ProductID);
+                                console.log('product units stock', data[i].UnitsInStock);
                                 $.ajax({
                                     url: "/online-shop/Front%20End/views/consolidate_branch.aspx",
                                     type: 'GET',
-                                    data: { reset: 'true' },
+                                    data: { id: data[i].ProductID, total: data[i].UnitsInStock },
                                     success: function (data) {
+
                                     }
                                 });
                             }
-
-                            setTimeout(function () {
-                                $.ajax({
-                                    url: "/online-shop/Front%20End/views/consolidate_branch.aspx",
-                                    type: 'GET',
-                                    data: { id: data[0].ProductID, total: data[0].UnitsInStock },
-                                    success: function (d) {                                        
-                                        len = data.length;
-                                        for (var i = 1; i<=len; i++) {
-                                            // post to save the data
-                                            $.ajax({
-                                                url: "/online-shop/Front%20End/views/consolidate_branch.aspx",
-                                                type: 'GET',
-                                                data: { id: data[i].ProductID, total: data[i].UnitsInStock },
-                                                success: function (data) {
-                                                    console.log(data);
-                                                }
-                                            });
-                                        }
-                                    }
-                                });
-
-                            }, 2000);
-
                         },
                         beforeSend: function () {
                         }

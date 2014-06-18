@@ -17,21 +17,20 @@ using System.Drawing;
 using System.Globalization;
 using System.Net.Mail;
 using System.Net;
-
-public partial class Front_End_views_consolidate_branch : System.Web.UI.Page
+public partial class Front_End_views_total_reset : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         int prod_count, total;
         string productId, branch, reset;
         string sql_str;
-        
-        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["NORTHWNDConnectionString"].ConnectionString);
-        
+
+        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["NORTHWNDConnectionString"].ConnectionString);        
+
         productId = Request.Params["id"].ToString();
         // branch = Request.Params["branch"].ToString();
         total = Convert.ToInt16(Request.Params["total"]);
-        
+
         sql_str = "Select * from TotalInventory where ProductID = " + productId;
         //WriteLogs(sql_str);
 
@@ -53,13 +52,13 @@ public partial class Front_End_views_consolidate_branch : System.Web.UI.Page
 
             //WriteLogs("update query");
             //product exist, update count
-            sql_str = "Update TotalInventory SET Total=" + total + " WHERE ProductID=" + productId;            
+            sql_str = "Update TotalInventory SET Total=" + 0 + " WHERE ProductID=" + productId;
         }
         else
         {
             //product don't exist, insert count
             sql_str = "Insert into TotalInventory(ProductID, Total) values (" +
-                        productId + ", " + total +")";
+                        productId + ", " + 0 + ")";
             //WriteLogs("insert query");
         }
 
@@ -69,24 +68,8 @@ public partial class Front_End_views_consolidate_branch : System.Web.UI.Page
 
         con.Close();
 
-        Response.Write(Request.QueryString);        
+        Response.Write(Request.QueryString);
         Response.Write("Ok");
         Response.End();
-
-    }
-
-    public static void WriteLogs(string message)
-    {
-        using (StreamWriter w = File.AppendText("C:\\Users\\marc\\Desktop\\log.txt")) { Log(message, w); }
-    }
-
-    public static void Log(string logMessage, TextWriter w)
-    {
-        //w.Write("\r\nLog Entry : ");
-        //w.WriteLine("{0} {1}", DateTime.Now.ToLongTimeString(),
-            //DateTime.Now.ToLongDateString());
-        //w.WriteLine("  :");
-        w.WriteLine(logMessage);
-        w.WriteLine("-------------------------------");
     }
 }
