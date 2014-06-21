@@ -15,7 +15,7 @@ public partial class Front_End_views_branch_inventory : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["NORTHWNDConnectionString"].ConnectionString);
-        string s = "select Top(5) * from Products";
+        string s = "select Top(10) * from Products";
         SqlCommand cmd = new SqlCommand(s, con);
         con.Open();
 

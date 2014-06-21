@@ -29,51 +29,83 @@
     </div>
 
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('form').submit(function () {
-                return false;
-            });
+        var com = {};
+        com = {
+            urls: [],
+            init: function () {
+                $('form').submit(function () {
+                    return false;
+                });
 
-            $('#reset-report').on('click', function (e) {
+                $('#reset-report').on('click', this.resetCallback);
+                $('#generate-report').on('click', this.generateReport);
+            },
+
+            generateReport: function(e) {
+                
+            },
+
+            resetCallback: function (e) {
                 e.preventDefault();
 
-                $(this).attr('disabled', 'disabled');
-                //show loader
-                $('#generate-loader').removeClass('hide');
+                $('.txt-branch').each(function () {
+                    com.urls.push($(this).val());
+                });
 
-                var url;
-                url = $('.txt-branch').val();
-
+                // get product lists
                 $.ajax({
-                    url: url,
+                    url: com.urls[0],
                     dataType: 'json',
                     type: 'GET',
+                    beforeSend: function () {
+                        com.showLoader();
+                    },
                     success: function (data) {
-                        window.data = data;
-                        var len;
-                        var i = 0;
-                        len = data.length;
-                        for (i = 0; i < len; i++) {
-                            $.ajax({
-                                url: "/online-shop/Front%20End/views/total_reset.aspx",
-                                type: 'GET',
-                                data: { id: data[i].ProductID, total: 0 },
-                                success: function (d) {
-                                    window.d = d;
-                                },
-                                complete: function () {
-                                    if (i == len) {
-                                        $('#generate-loader').addClass('hide');
-                                        $('#reset-report').removeAttr('disabled');
-                                    }
-                                }
-                            });
-                        }
+                        com.resetInventory(data);
+                    },
 
+                    complete: function () {
                     }
                 });
 
-            });
+            },
+
+            resetInventory: function (data) {
+                var len;
+                var i = 0;
+                len = data.length;
+                for (i = 0; i < len; i++) {
+                    $.ajax({
+                        url: "/online-shop/Front%20End/views/total_reset.aspx",
+                        type: 'GET',
+                        data: { id: data[i].ProductID, total: 0 },
+                        success: function (d) {
+                            window.d = d;
+                        },
+                        complete: function () {
+                            if (i == len) { com.hideLoader(); }
+                        }
+                    });
+                }
+            },
+
+            showLoader: function () {
+                //$('btn').attr('disabled', 'disabled');
+                $('#generate-loader').removeClass('hide');
+            },
+
+            hideLoader: function () {
+                //$('btn').removeAttr('disabled', 'disabled');
+                $('#generate-loader').addClass('hide');
+            }
+        };
+        
+        $(document).ready(function () {
+            window.ctr = 0;
+            window.ctr_obj_len = 0;
+            window.branch1 = [];
+            window.branch2 = [];
+            window.branch3 = [];
 
             $('#generate-report').on('click', function (e) {
                 e.preventDefault();
@@ -100,19 +132,49 @@
                         success: function (data) {
                             window.data = data;
                             var i = 0;
-                            len = data.length;
+                            window.ctr_obj_len = len = data.length;
                             for (i = 0; i < len; i++) {
                                 // post to save the data
                                 console.log('product id', data[i].ProductID);
                                 console.log('product units stock', data[i].UnitsInStock);
-                                $.ajax({
-                                    url: "/online-shop/Front%20End/views/consolidate_branch.aspx",
-                                    type: 'GET',
-                                    data: { id: data[i].ProductID, total: data[i].UnitsInStock },
-                                    success: function (data) {
+                                id = data[i].ProductID;
+                                total = data[i].UnitsInStock;
 
+                                var post_interval = setInterval(function () {
+
+                                    if (window.ctr >= window.ctr_obj_len) {
+                                        clearInterval(post_interval);
+                                        post_interval = null;
+                                    } else {
+                                        id = window.data[window.ctr].ProductID;
+                                        total = window.data[window.ctr].UnitsInStock;
+
+                                        $.ajax({
+                                            url: "/online-shop/Front%20End/views/consolidate_branch.aspx",
+                                            type: 'GET',
+                                            data: { id: id, total: total },
+                                            success: function (data) {
+                                                console.log('success post to consolidate branch', window.ctr);
+                                            }
+                                        });
+
+                                        console.log("after interval.......");
+                                        window.ctr++;
                                     }
-                                });
+
+
+
+                                }, 2000);
+
+                                //}, 10000);
+                                /*$.ajax({
+                                url: "/online-shop/Front%20End/views/consolidate_branch.aspx",
+                                type: 'GET',
+                                data: { id: data[i].ProductID, total: data[i].UnitsInStock },
+                                success: function (data) {
+
+                                }
+                                });*/
                             }
                         },
                         beforeSend: function () {
