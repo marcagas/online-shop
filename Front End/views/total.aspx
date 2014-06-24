@@ -31,6 +31,8 @@
     <script type="text/javascript">
         var com = {};
         com = {
+            data: [],
+            saved_data: [],
             urls: [],
             init: function () {
                 $('form').submit(function () {
@@ -41,12 +43,81 @@
                 $('#generate-report').on('click', this.generateReport);
             },
 
-            generateReport: function(e) {
-                
+            generateReport: function (e) {
+                e.preventDefault();
+                com.urls = [];
+                com.data = [];
+
+                $('.txt-branch').each(function () {
+                    com.urls.push($(this).val());
+                });
+
+                // get product lists
+
+                for (var i = 0; i < com.urls.length; i++) {
+                    $.ajax({
+                        url: com.urls[i],
+                        dataType: 'json',
+                        type: 'GET',
+                        beforeSend: function () {
+                            com.showLoader();
+                        },
+                        success: function (data) {
+                            com.data.push(data);
+                            //com.setInventory(data);
+
+                            if (com.data.length == 3) {
+                                merged_data = com.sumInventory();
+                                com.saved_data = [];
+                                com.setInventory(merged_data);
+                            }
+                        },
+                        complete: function () {
+                        }
+                    });
+                }
+
+            },
+
+            sumInventory: function () {
+                com.merged_obj = [];
+                com.merged_obj = $.extend([], com.data[0], com.data[1], com.data[2]);
+                for (var i = 0; i < com.merged_obj.length; i++) {
+                    com.merged_obj[i].UnitsInStock = com.data[0][i].UnitsInStock + com.data[1][i].UnitsInStock + com.data[2][i].UnitsInStock;
+                }
+                return com.merged_obj;
+            },
+
+            setInventory: function (data) {
+                var len = 0, i = 0;
+                len = data.length;
+
+                for (i = 0; i < len; i++) {
+                    productId = data[i].ProductID;
+                    total = data[i].UnitsInStock;
+
+                    console.log('data', productId);
+                    console.log('units', total);
+
+                    $.ajax({
+                        url: "/online-shop/Front%20End/views/consolidate_branch.aspx",
+                        type: 'GET',
+                        data: { id: productId, total: total },
+                        success: function (data) {
+                            com.saved_data.push(data);
+                        }, complete: function () {
+                            if (com.saved_data.length == com.merged_obj.length) {
+                                alert('done');
+                                com.hideLoader();
+                            }
+                        }
+                    });
+                }
             },
 
             resetCallback: function (e) {
                 e.preventDefault();
+                com.urls = [];
 
                 $('.txt-branch').each(function () {
                     com.urls.push($(this).val());
@@ -83,7 +154,9 @@
                             window.d = d;
                         },
                         complete: function () {
-                            if (i == len) { com.hideLoader(); }
+                            if (i == len) {
+                                com.hideLoader();
+                            }
                         }
                     });
                 }
@@ -99,15 +172,16 @@
                 $('#generate-loader').addClass('hide');
             }
         };
-        
+
         $(document).ready(function () {
+            com.init();
             window.ctr = 0;
             window.ctr_obj_len = 0;
             window.branch1 = [];
             window.branch2 = [];
             window.branch3 = [];
 
-            $('#generate-report').on('click', function (e) {
+            $('#gsenerate-report').on('click', function (e) {
                 e.preventDefault();
 
                 $(this).attr('disabled', 'disabled');
