@@ -9,22 +9,25 @@
     <div class="col-5">
     <form role="form">
         <div class="form-group">
-            <label class="control-label">Branch Url: </label>
+            <label class="control-label">SM Dasmarinas Branch Url: </label>
             <input type="text" class="form-control txt-branch"/>
         </div>
         <div class="form-group">
-            <label class="control-label">Branch Url: </label>
+            <label class="control-label">SM Rosario Branch Url: </label>
             <input type="text" class="form-control txt-branch"/>
         </div>
         <div class="form-group">
-            <label class="control-label">Branch Url: </label>
+            <label class="control-label">Waltermart Carmona Branch Url: </label>
             <input type="text" class="form-control txt-branch"/>
         </div>
 
         <button type="submit" id="reset-report" class="btn btn-reset btn-default">Reset Report</button>
         <button type="submit" id="generate-report" class="btn btn-generate btn-default">Generate Report</button>
-
+        
         <img src="../../assets/images/ajax-loader.gif" class="hide" id="generate-loader"/>
+        <br />
+        <br />
+        <a href="total_inventory.aspx">View Total Report</a>
     </form>
     </div>
 
@@ -63,6 +66,7 @@
                             com.showLoader();
                         },
                         success: function (data) {
+                            console.log('data', data);
                             com.data.push(data);
                             //com.setInventory(data);
 
@@ -84,6 +88,16 @@
                 com.merged_obj = $.extend([], com.data[0], com.data[1], com.data[2]);
                 for (var i = 0; i < com.merged_obj.length; i++) {
                     com.merged_obj[i].UnitsInStock = com.data[0][i].UnitsInStock + com.data[1][i].UnitsInStock + com.data[2][i].UnitsInStock;
+                    com.merged_obj[i].branch1 = com.data[0][i].UnitsInStock;
+                    com.merged_obj[i].branch1_name = 'paco';
+
+                    com.merged_obj[i].branch2 = com.data[1][i].UnitsInStock;
+                    com.merged_obj[i].branch2_name = 'tamo';
+
+                    com.merged_obj[i].branch3 = com.merged_obj[i].UnitsInStock - (com.merged_obj[i].branch1 + com.merged_obj[i].branch2);
+                    console.log('merging >>>', com.merged_obj[i].branch3);
+                    com.merged_obj[i].branch3_name = 'zapots';
+
                 }
                 return com.merged_obj;
             },
@@ -95,14 +109,23 @@
                 for (i = 0; i < len; i++) {
                     productId = data[i].ProductID;
                     total = data[i].UnitsInStock;
+                    branch1 = data[i].branch1;
+                    branch1_name = data[i].branch1_name;
+                    branch2 = data[i].branch2;
+                    branch2_name = data[i].branch2_name;
+                    branch3 = data[i].branch3;
+                    branch3_name = data[i].branch3_name;
 
                     console.log('data', productId);
                     console.log('units', total);
+                    console.log('branch1', branch1);
+                    console.log('branch2', branch2);
+                    console.log('branch3', branch3);
 
                     $.ajax({
                         url: "/online-shop/Front%20End/views/consolidate_branch.aspx",
                         type: 'GET',
-                        data: { id: productId, total: total },
+                        data: { id: productId, total: total, branch1: branch1, branch2: branch2, branch3: branch3 },
                         success: function (data) {
                             com.saved_data.push(data);
                         }, complete: function () {

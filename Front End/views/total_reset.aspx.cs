@@ -52,7 +52,7 @@ public partial class Front_End_views_total_reset : System.Web.UI.Page
 
             //WriteLogs("update query");
             //product exist, update count
-            sql_str = "Update TotalInventory SET Total=" + 0 + " WHERE ProductID=" + productId;
+            sql_str = "Update TotalInventory SET Total=0, Branch1=0, Branch2=0, Branch3=0 WHERE ProductID=" + productId;
         }
         else
         {

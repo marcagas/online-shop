@@ -22,7 +22,7 @@ public partial class Front_End_views_consolidate_branch : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        int prod_count, total;
+        int prod_count, total, branch1, branch2, branch3;
         string productId, branch, reset;
         string sql_str;
         
@@ -31,6 +31,9 @@ public partial class Front_End_views_consolidate_branch : System.Web.UI.Page
         productId = Request.Params["id"].ToString();
         // branch = Request.Params["branch"].ToString();
         total = Convert.ToInt16(Request.Params["total"]);
+        branch1 = Convert.ToInt16(Request.Params["branch1"]);
+        branch2 = Convert.ToInt16(Request.Params["branch2"]);
+        branch3 = Convert.ToInt16(Request.Params["branch3"]);
         
         sql_str = "Select * from TotalInventory where ProductID = " + productId;
         //WriteLogs(sql_str);
@@ -53,7 +56,7 @@ public partial class Front_End_views_consolidate_branch : System.Web.UI.Page
 
             //WriteLogs("update query");
             //product exist, update count
-            sql_str = "Update TotalInventory SET Total=" + total + " WHERE ProductID=" + productId;            
+            sql_str = "Update TotalInventory SET Total=" + total + ", branch1=" + branch1 + ", branch2=" + branch2 + ", branch3=" + branch3 + " WHERE ProductID=" + productId;            
         }
         else
         {
