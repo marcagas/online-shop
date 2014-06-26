@@ -99,6 +99,7 @@
                     com.merged_obj[i].branch3_name = 'zapots';
 
                 }
+
                 return com.merged_obj;
             },
 
@@ -155,6 +156,17 @@
                         com.showLoader();
                     },
                     success: function (data) {
+                        n = data.length;
+                        for (var x = 0; x < n; x++) {
+                            for (var y = 0; y < n - 1; y++) {
+                                if (data[y].ProductID > data[y + 1].ProductID) {
+                                    var tmp = data[y + 1];
+                                    data[y + 1] = data[y];
+                                    data[y] = tmp;
+                                }
+                            }
+                        }
+                        console.log('data', data);
                         com.resetInventory(data);
                     },
 
