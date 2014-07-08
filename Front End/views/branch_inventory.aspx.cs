@@ -40,6 +40,7 @@ public partial class Front_End_views_branch_inventory : System.Web.UI.Page
         }
 
         serializer.Serialize(rows);
+        Response.AppendHeader("Access-Control-Allow-Origin", "*");
         Response.Write(serializer.Serialize(rows));
         Response.End();
     }
