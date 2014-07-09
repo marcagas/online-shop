@@ -65,9 +65,18 @@
                         beforeSend: function () {
                             com.showLoader();
                         },
-                        success: function (data) {
+                        success: function (data, status, xhr) {
                             console.log('data', data);
-                            com.data.push(data);
+
+                            if (this.url.match('dasma')) {
+                                com.data[0] = data;
+                            } else if (this.url.match('rosar')) {
+                                com.data[1] = data;
+                            } else if (this.url.match('carmona')) {
+                                com.data[2] = data;
+                            } else {
+                                com.data.push(data);
+                            }
                             //com.setInventory(data);
 
                             if (com.data.length == 3) {
